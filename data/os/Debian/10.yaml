@@ -18,3 +18,45 @@ isp3node::base::software::additional:
 isp3node::postfix::setup::additional_packages:
   - postfix-doc
   - postfix-mysql
+
+isp3node::dovecot::setup::packages:
+  - getmail4
+  - dovecot-imapd
+  - dovecot-pop3d
+  - dovecot-mysql
+  - dovecot-sieve
+  - dovecot-lmtpd
+  - clamav
+  - clamav-daemon
+  - unzip
+  - bzip2
+  - arj
+  - nomarch
+  - lzop
+  - cabextract
+  - p7zip
+  - p7zip-full
+  - unrar
+  - lrzip
+  - apt-listchanges
+  - libnet-ldap-perl
+  - libauthen-sasl-perl
+  - clamav-docs
+  - daemon
+  - libio-string-perl
+  - libio-socket-ssl-perl
+  - libnet-ident-perl
+  - zip
+  - libnet-dns-perl
+  - libdbd-mysql-perl
+  - postgrey
+
+isp3node::dovecot::rspamd::config:
+  redis:
+    servers: 127.0.0.1
+  history_redis:
+      nrows: 2500
+      compress: true
+      subject_privacy: false
+# Nameserver package to install for rspamd
+isp3node::dovecot::rspamd::nameserver: unbound

@@ -4,8 +4,11 @@
 # manages SSL certificates for services (optional obtained from LE)
 class isp3node::profile::mail() {
   class {'isp3node::base':
-    le_deploycommands => ['systemctl restart postfix']
+    le_deploycommands => ['systemctl restart postfix', 'systemctl restart dovecot']
   }
   -> class {'isp3node::mariadb':}
   -> class {'isp3node::postfix': mode => 'standalone'}
+  # Redis is required by rspamd as configured by dovecot
+  -> class {'isp3node::redis':}
+  -> class {'isp3node::dovecot':}
 }

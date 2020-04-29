@@ -19,6 +19,20 @@ class isp3node::dovecot::rspamd(
 
   class { 'rspamd': }
   rspamd::create_config_file_resources($config)
-  
+
   Class['isp3node::redis'] -> Class['rspamd']
+
+  nginx::resource::location {'rspamd-dashboard':
+    ensure           => present,
+    server           => $facts['fqdn'],
+    ssl              => true,
+    ssl_only         => true,
+    location         => '/rspamd/',
+    proxy            => 'http://127.0.0.1:11334/',
+    proxy_set_header => [
+      'X-Forwarded-For $proxy_add_x_forwarded_for',
+      'X-Real-IP $remote_addr',
+      'Host $http_host',
+    ],
+  }
 }

@@ -1,0 +1,20 @@
+---
+isp3node::base::software::required:
+  - ssh
+  - openssh-server
+  - ntp 
+  - openssl
+  - rkhunter
+  - binutils
+  - sudo
+
+isp3node::base::software::additional:
+  # Required by some puppet modules but not automatically managed ...
+  - augeas-tools
+
+isp3node::base::software::additional:
+  - vim-nox
+
+isp3node::postfix::setup::additional_packages:
+  - postfix-doc
+  - postfix-mysql

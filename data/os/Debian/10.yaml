@@ -60,3 +60,13 @@ isp3node::dovecot::rspamd::config:
       subject_privacy: false
 # Nameserver package to install for rspamd
 isp3node::dovecot::rspamd::nameserver: unbound
+
+isp3node::php::setup::sets:
+  # minimum, required on all isp nodes
+  default:
+    packages:
+      - mcrypt
+      - imagemagick
+      - libruby
+      - memcached
+      - fcgiwrap

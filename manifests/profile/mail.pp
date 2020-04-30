@@ -16,4 +16,5 @@ class isp3node::profile::mail() {
   -> class {'isp3node::redis':}
   -> class {'isp3node::dovecot':}
   -> class {'isp3node::nginx':}
+  -> class {'isp3node::php':}
 }

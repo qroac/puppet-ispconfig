@@ -1,4 +1,9 @@
 ---
+lookup_options:
+  # Allow system specific datafiles to extend php config sets
+  isp3node::php::setup::sets:
+    merge: deep
+
 # Taken from facts if not set
 #isp3node::base::ip: 127.0.0.1
 #isp3node::base::hostname: isphost01
@@ -32,3 +37,80 @@ isp3node::postfix::setup::master_smtps: |
 
 #isp3node::postfix::satellite::relay: my.relay.server.de
 #isp3node::postfix::setup::mailman: false
+
+isp3node::php::setup::version: "7.3"
+isp3node::php::setup::sets:
+  # minimum, required on all isp nodes
+  default:
+    #packages:
+      # System package names depend on OS, defined in OS data files
+    extensions:
+      bcmath: {}
+      curl: {}
+      mbstring: {}
+      mysql: {} 
+    settings:
+      PHP/max_execution_time: 90
+      PHP/max_input_time: 300
+      PHP/memory_limit: 64M
+      PHP/post_max_size: 32M
+      PHP/upload_max_filesize: 32M
+      PHP/cgi.fix_pathinfo: 0
+      Date/date.timezone: Europe/Berlin
+  master:
+    extensions:
+      apcu:
+        #        provider: pecl
+        settings:
+            apc/stat: 1
+            apc/stat_ctime: 1
+        sapi: fpm
+      curl: {}
+      gd: {}
+      gettext: {}
+      imagick: {}
+      imap: {}
+      intl: {}
+      memcached: {}
+      pdo: {}
+      pspell: {}
+      opcache: {}
+      recode: {}
+      soap: {}
+      tidy: {}
+      xmlrpc: {}
+      xsl: {}
+      zip: {}
+  web:
+    extensions:
+      apcu:
+        #        provider: pecl
+        settings:
+            apc/stat: 1
+            apc/stat_ctime: 1
+        sapi: fpm
+      cgi: {}
+      curl: {}
+      gd: {}
+      gettext: {}
+      imagick: {}
+      imap: {}
+      intl: {}
+      memcached: {}
+      pdo: {}
+      pspell: {}
+      opcache: {}
+      recode: {}
+      soap: {}
+      sqlite3: {}
+      tidy: {}
+      xmlrpc: {}
+      xsl: {}
+      zip: {}
+    features:
+      - fpm
+      - composer
+      - pear
+      - phpunit
+
+

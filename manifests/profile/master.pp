@@ -7,4 +7,6 @@ class isp3node::profile::master() {
     public => true,
   }
   -> class {'isp3node::postfix': mode => 'satellite'}
+  -> class {'isp3node::nginx':}
+  -> class {'isp3node::php': set => 'master'}
 }

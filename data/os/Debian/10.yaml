@@ -75,3 +75,11 @@ isp3node::mailman::setup::packages:
   - mailman
 #isp3node::mailman::configure::admin_email: me@mydomain.com
 #isp3node::mailman::configure::admin_password: setyourown!
+
+isp3node::pureftpd::setup::packages:
+  - pure-ftpd-common
+  - pure-ftpd-mysql
+
+isp3node::quota::setup::packages:
+  - quota
+  - quotatool

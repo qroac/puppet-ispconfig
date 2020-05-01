@@ -17,6 +17,7 @@
 # @param key
 #   Private Key, if LE is not used
 class isp3node::base::ssl(
+  Integer $dhparamsize,
   Optional[Boolean] $letsencrypt = true,
   # TODO Need a better way to restart services after cert renewal ... Maybe a restart script and every service adds itself with concat?
   Optional[Array[String]] $le_deploycommands = ['systemctl restart postfix'],
@@ -26,6 +27,7 @@ class isp3node::base::ssl(
   Optional[String] $ca = undef,
   Optional[String] $key = undef,
 ) {
+  # TODO add option to switch to webroot for servers running nginx
   File{
     owner => root,
     group => root,
@@ -34,7 +36,20 @@ class isp3node::base::ssl(
   file{'/etc/ssl/local':
     ensure => directory,
   }
+  exec{'ssl-dhparam':
+    command => "openssl dhparam -out /etc/ssl/local/dhparam.pem ${dhparamsize}",
+    require => [File['/etc/ssl/local']],
+    creates => '/etc/ssl/local/dhparam.pem',
+    path    => $facts['path'],
+    timeout => 1800,
+  }
   if($letsencrypt) {
+    # Deploy hook to generate pem containing the key
+    $deployhooks = [
+      "cat /etc/letsencrypt/live/${facts['fqdn']}/privkey.pem > /etc/ssl/local/${facts['fqdn']}.keybundle.pem",
+      "cat /etc/letsencrypt/live/${facts['fqdn']}/fullchain.pem >> /etc/ssl/local/${facts['fqdn']}.keybundle.pem",
+      "chmod 600 /etc/ssl/local/${facts['fqdn']}.keybundle.pem",
+    ]
     class { 'letsencrypt':
       email             => $email,
       package_ensure    => 'latest',
@@ -42,7 +57,7 @@ class isp3node::base::ssl(
     }
     letsencrypt::certonly { $facts['fqdn']:
       domains              => [$facts['fqdn']] + $domains,
-      deploy_hook_commands => $le_deploycommands,
+      deploy_hook_commands => $deployhooks + $le_deploycommands,
     }
     file{"/etc/ssl/local/${facts['fqdn']}.crt":
       ensure => link,

@@ -9,7 +9,8 @@
 class isp3node::profile::web(){
   class {'isp3node::base':
     le_deploycommands => [
-      'systemctl reload nginx'
+      'systemctl reload nginx',
+      'systemctl restart pure-ftpd-mysql'
     ]
   }
   -> class {'isp3node::mariadb':
@@ -19,4 +20,6 @@ class isp3node::profile::web(){
   -> class {'isp3node::nginx':}
   -> class {'isp3node::php': set => 'web'}
   -> class {'isp3node::phpmyadmin':}
+  -> class {'isp3node::pureftpd':}
+  -> class {'isp3node::quota':}
 }

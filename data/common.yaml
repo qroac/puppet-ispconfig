@@ -113,4 +113,17 @@ isp3node::php::setup::sets:
       - pear
       - phpunit
 
-
+# Set up a web frontend or just list the server on other frontends
+isp3node::phpmyadmin::frontend: false
+isp3node::phpmyadmin::setup::source: 
+  url: https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-all-languages.tar.gz
+  checksum: 1bd82fdcf5375526c8b5124a20968b69981724307d878321ae29499c61bbf48e
+  checksum_type: sha256
+# Set your own !
+# isp3node::phpmyadmin::setup::blowfish_secret: ispconfig-pma-bfs
+isp3node::phpmyadmin::setup::controluser: ispconfig-pma
+# Set your own !
+# isp3node::phpmyadmin::setup::controlpass: ispconfig-pma-pass
+# Create the hash by executing in a sql shell:
+# SELECT PASSWORD('my-password');
+# ispconfig3::phpmyadmin::controlpass_hash: '*B2BA8208A112BD88AFB6F58055F70725D4238156'

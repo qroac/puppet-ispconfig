@@ -112,6 +112,24 @@ isp3node::php::setup::sets:
       - composer
       - pear
       - phpunit
+  mail:
+    extensions:
+      cgi: {}
+      curl: {}
+      gd: {}
+      gettext: {}
+      imagick: {}
+      imap: {}
+      intl: {}
+      pdo: {}
+      pspell: {}
+      opcache: {}
+      recode: {}
+      soap: {}
+      tidy: {}
+      xmlrpc: {}
+      xsl: {}
+      zip: {}
 
 # Set up a web frontend or just list the server on other frontends
 isp3node::phpmyadmin::frontend: false

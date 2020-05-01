@@ -70,3 +70,8 @@ isp3node::php::setup::sets:
       - libruby
       - memcached
       - fcgiwrap
+
+isp3node::mailman::setup::packages:
+  - mailman
+#isp3node::mailman::configure::admin_email: me@mydomain.com
+#isp3node::mailman::configure::admin_password: setyourown!

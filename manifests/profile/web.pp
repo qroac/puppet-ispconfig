@@ -22,4 +22,5 @@ class isp3node::profile::web(){
   -> class {'isp3node::phpmyadmin':}
   -> class {'isp3node::pureftpd':}
   -> class {'isp3node::quota':}
+  -> class {'isp3node::webstats':}
 }

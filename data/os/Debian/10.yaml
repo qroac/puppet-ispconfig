@@ -83,3 +83,10 @@ isp3node::pureftpd::setup::packages:
 isp3node::quota::setup::packages:
   - quota
   - quotatool
+
+isp3node::bind::setup::packages:
+  - bind9
+  - dnsutils
+isp3node::bind::setup::entropy_packages:
+  - haveged
+isp3node::bind::setup::entropy_service: haveged

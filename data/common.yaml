@@ -155,3 +155,20 @@ isp3node::quota::config::mountopts:
   - usrjquota=quota.user
   - grpjquota=quota.group
   - jqfmt=vfsv0
+
+# Set to true to install haveged for higher dnssec entropy on hardware nodes
+# Will automatically be installed on all vms
+isp3node::bind::setup::boost_entropy: false
+
+
+isp3node::webstats::setup::webalizer: true
+isp3node::webstats::setup::awstats: true
+isp3node::webstats::setup::packages:
+  - geoip-database
+  - libtimedate-perl
+  - libclass-dbi-mysql-perl
+isp3node::webstats::setup::packages_webalizer:
+  - webalizer
+isp3node::webstats::setup::packages_awstats:
+  - awstats
+isp3node::webstats::setup::awstats_cronfile: /etc/cron.d/awstats

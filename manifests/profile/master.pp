@@ -9,4 +9,5 @@ class isp3node::profile::master() {
   -> class {'isp3node::postfix': mode => 'satellite'}
   -> class {'isp3node::nginx':}
   -> class {'isp3node::php': set => 'master'}
+  -> class {'isp3node::fail2ban':}
 }

@@ -19,13 +19,15 @@ isp3node::postfix::setup::additional_packages:
   - postfix-doc
   - postfix-mysql
 
-isp3node::dovecot::setup::packages:
-  - getmail4
+isp3node::dovecot::setup::packages: 
+  - dovecot-core
   - dovecot-imapd
   - dovecot-pop3d
   - dovecot-mysql
   - dovecot-sieve
   - dovecot-lmtpd
+isp3node::dovecot::setup::packages:
+  - getmail4
   - clamav
   - clamav-daemon
   - unzip

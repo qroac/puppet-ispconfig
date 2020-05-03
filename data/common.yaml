@@ -178,3 +178,24 @@ isp3node::jailkit::setup::file: jailkit-2.21.tar.gz
 isp3node::jailkit::setup::checksum: 7a020e07adf93860c538f0d98196aea33d461babdba8bb3eddf7081e57a29c14
 isp3node::jailkit::setup::checksum_type: sha256
 isp3node::jailkit::setup::tmpfolder: jailkit-2.21
+
+# See list of predefined jails for options:
+# https://forge.puppet.com/puppet/fail2ban/readme#pre-defined-jails
+isp3node::fail2ban::setup::jails:
+  - sasl
+  - ssh
+  - sshd-ddos
+isp3node::fail2ban::setup::servicejails:
+  dovecot:
+    - dovecot
+  mysql:
+    - mysqld-auth
+  nginx:
+    - nginx-http-auth
+  postfix:
+    - postfix
+  pureftpd:
+    - pure-ftpd
+  roundcube:
+    - roundcube-auth
+  

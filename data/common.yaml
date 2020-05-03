@@ -172,3 +172,9 @@ isp3node::webstats::setup::packages_webalizer:
 isp3node::webstats::setup::packages_awstats:
   - awstats
 isp3node::webstats::setup::awstats_cronfile: /etc/cron.d/awstats
+
+isp3node::jailkit::setup::source: https://olivier.sessink.nl/jailkit
+isp3node::jailkit::setup::file: jailkit-2.21.tar.gz
+isp3node::jailkit::setup::checksum: 7a020e07adf93860c538f0d98196aea33d461babdba8bb3eddf7081e57a29c14
+isp3node::jailkit::setup::checksum_type: sha256
+isp3node::jailkit::setup::tmpfolder: jailkit-2.21

@@ -23,4 +23,5 @@ class isp3node::profile::web(){
   -> class {'isp3node::pureftpd':}
   -> class {'isp3node::quota':}
   -> class {'isp3node::webstats':}
+  -> class {'isp3node::jailkit':}
 }

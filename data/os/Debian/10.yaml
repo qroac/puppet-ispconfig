@@ -90,3 +90,13 @@ isp3node::bind::setup::packages:
 isp3node::bind::setup::entropy_packages:
   - haveged
 isp3node::bind::setup::entropy_service: haveged
+
+
+isp3node::jailkit::setup::build_packages:
+  - build-essential
+  - autoconf
+  - automake
+  - libtool
+  - flex
+  - bison
+  - debhelper

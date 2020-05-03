@@ -10,7 +10,7 @@ Facter.add(:isp3node) do
       :nginx     => nginx,
       :postfix   => postfix,
       :pureftpd  => pureftpd,
-      :roundcube => {:installed => false}, 
+      :roundcube => roundcube,
     }
   end
 end
@@ -95,6 +95,16 @@ def pureftpd()
     pf[:version] = package_version('pure-ftpd-common')
   end
   pf
+end
+
+def roundcube()
+  rc = {
+    :installed => package_installed?('roundcube')
+  }
+  if(rc[:installed])
+    rc[:version] = package_version('roundcube')
+  end
+  rc
 end
 
 def package_installed?(package)

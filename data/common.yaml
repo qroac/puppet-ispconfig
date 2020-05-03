@@ -133,6 +133,8 @@ isp3node::php::setup::sets:
       xmlrpc: {}
       xsl: {}
       zip: {}
+    features:
+      - fpm
 
 # Set up a web frontend or just list the server on other frontends
 isp3node::phpmyadmin::frontend: false

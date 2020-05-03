@@ -1,0 +1,43 @@
+# Favicon
+location ~ ^/webmail/favicon.ico$ {
+        root /usr/share/webapps/roundcubemail/skins/classic/images;
+        log_not_found off;
+        access_log off;
+        expires max;
+}
+# Robots file
+location ~ ^/webmail/robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+}
+# Deny Protected directories 
+location ~ ^/webmail/(config|temp|logs)/ {
+          deny all;
+}
+location ~ ^/webmail/(README|INSTALL|LICENSE|CHANGELOG|UPGRADING)$ {
+        deny all;
+}
+location ~ ^/webmail/(bin|SQL)/ {
+        deny all;
+}
+# Hide .md files
+location ~ ^/webmail/(.+\.md)$ {
+        deny all;
+}
+# Hide all dot files
+location ~ ^/webmail/\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+}
+# Roundcube fastcgi config
+location ~ /webmail(/.*\.php)$ {
+        include fastcgi.conf;
+        fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
+        fastcgi_split_path_info ^/webmail/(.+\.php)(/.*)$;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $request_filename;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param PHP_VALUE open_basedir="/tmp/:/var/cache/roundcubemail:/usr/share/webapps/roundcubemail:/etc/webapps/roundcubemail:/usr/share/pear/:/var/log/roundcubemail";
+}

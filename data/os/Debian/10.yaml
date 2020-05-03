@@ -103,3 +103,9 @@ isp3node::jailkit::setup::build_packages:
   - flex
   - bison
   - debhelper
+
+isp3node::roundcube::setup::packages:
+  - roundcube
+  - roundcube-core
+  - roundcube-mysql
+  - roundcube-plugins

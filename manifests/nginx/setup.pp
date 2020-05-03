@@ -5,6 +5,10 @@
 # @example
 #   include isp3node::nginx::setup
 class isp3node::nginx::setup {
+  # Ensure a2 is not running
+  service{'apache2':
+    ensure => stopped,
+  }
   class{'nginx':
     manage_repo    => true,
     package_source => 'nginx-stable'

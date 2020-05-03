@@ -1,0 +1,19 @@
+        </ul>
+    </div>
+</div>
+
+<div class="splash-container">
+    <div class="splash">
+        <h1 class="splash-head"><%= $facts['hostname'] %></h1>
+        <p class="splash-subhead">
+            <%= lookup('isp3node::description', undef, undef, '') %>
+        </p>
+        <!--<p>
+            <a href="http://purecss.io" class="pure-button pure-button-primary">Get Started</a>
+        </p>-->
+    </div>
+</div>
+
+
+</body>
+</html>

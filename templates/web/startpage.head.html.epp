@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example that shows off a responsive product landing page.">
+    <title><%= $facts['fqdn'] %></title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <style>
+      * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      body {
+          line-height: 1.7em;
+          color: #7f8c8d;
+          font-size: 13px;
+      }
+      h1,h2,h3,h4,h5,h6,label {
+          color: #34495e;
+      }
+      .pure-button {
+          background-color: #1f8dd6;
+          color: white;
+          padding: 0.5em 2em;
+          border-radius: 5px;
+      }
+      a.pure-button-primary {
+          background: white;
+          color: #1f8dd6;
+          border-radius: 5px;
+          font-size: 120%;
+      }
+      .home-menu {
+          padding: 0.5em;
+          text-align: center;
+          box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
+      }
+      .home-menu {
+          background: #2d3e50;
+      }
+      .pure-menu.pure-menu-fixed {
+          border-bottom: none;
+          z-index: 4;
+      }
+      .home-menu .pure-menu-heading {
+          color: white;
+          font-weight: 400;
+          font-size: 120%;
+      }
+      .home-menu .pure-menu-selected a {
+          color: white;
+      }
+      .home-menu a {
+          color: #6FBEF3;
+      }
+      .home-menu li a:hover,
+      .home-menu li a:focus {
+          background: none;
+          border: none;
+          color: #AECFE5;
+      }
+      .splash-container {
+          background: #1f8dd6;
+          z-index: 1;
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          position: fixed !important;
+      }
+
+      .splash {
+          width: 80%;
+          height: 100%;
+          margin: auto;
+          position: absolute;
+          top: 100px; left: 0; bottom: 0; right: 0;
+          text-align: center;
+          text-transform: uppercase;
+      }
+      .splash-head {
+          font-size: 20px;
+          font-weight: bold;
+          color: white;
+          border: 3px solid white;
+          padding: 1em 1.6em;
+          font-weight: 100;
+          border-radius: 5px;
+          line-height: 1em;
+      }
+      .splash-subhead {
+          color: white;
+          letter-spacing: 0.05em;
+          opacity: 0.8;
+      }
+      @media (min-width: 48em) {
+          body {
+              font-size: 16px;
+          }
+          .home-menu {
+              text-align: left;
+          }
+          .home-menu ul {
+              float: right;
+          }
+          .splash {
+              width: 50%;
+              height: 50%;
+          }
+          .splash-head {
+              font-size: 250%;
+          }
+      }
+      @media (min-width: 78em) {
+          /* We increase the header font size even more */
+          .splash-head {
+              font-size: 300%;
+          }
+      }
+    </style>
+</head>

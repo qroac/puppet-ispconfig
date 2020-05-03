@@ -45,6 +45,10 @@
     {
       "name": "puppet-fail2ban",
       "version_requirement": ">= 3.1.0 < 4.0.0"
+    },
+    {
+      "name": "stm-debconf",
+      "version_requirement": ">= 3.0.0 < 4.0.0"
     }
   ],
   "operatingsystem_support": [

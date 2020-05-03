@@ -12,6 +12,11 @@ class isp3node::phpmyadmin(
     class{'isp3node::phpmyadmin::config::nginx':}
   }
 
+  isp3node::nginx::startpageentry { 'phpmyadmin':
+    verbose_name => 'Database',
+    path         => '/phpmyadmin',
+  }
+
   # Ordering
   Class['isp3node::phpmyadmin::setup']
   -> Class['isp3node::phpmyadmin::config::nginx']

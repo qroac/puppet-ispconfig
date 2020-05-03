@@ -27,7 +27,7 @@ isp3node::dovecot::setup::packages:
   - dovecot-mysql
   - dovecot-sieve
   - dovecot-lmtpd
-isp3node::dovecot::setup::packages:
+isp3node::dovecot::setup::additional_packages:
   - getmail4
   - clamav
   - clamav-daemon

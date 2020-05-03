@@ -16,7 +16,7 @@ class isp3node::mariadb::configuration(
     creates => '/usr/local/ispconfig/puppet/mariadb_rootuser_plugin_set',
     path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
   }
-  -> file{'/etc/mysql/debian.conf':
+  -> file{'/etc/mysql/debian.cnf':
     ensure  => file,
     owner   => 'root',
     group   => 'root',

@@ -83,6 +83,14 @@ def postfix()
   }
   if(pf[:installed])
     pf[:version] = package_version('postfix')
+    relay = Facter::Core::Execution.execute("postconf -h relayhost", :on_fail => '')
+    if(relay == '')
+      pf[:mode] = 'standalone'
+    else
+      pf[:mode] = 'satellite'
+      pf[:relay] = relay
+    end
+    pf[:allowed_hosts] = Facter::Core::Execution.execute("postconf -h mynetworks", :on_fail => '').split(' ')
   end
   pf
 end

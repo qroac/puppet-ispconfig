@@ -19,6 +19,62 @@ isp3node::base::software::additional:
 isp3node::postfix::setup::additional_packages:
   - postfix-doc
   - postfix-mysql
+isp3node::postfix::standalone::options:
+  #alias_maps: hash:/etc/aliases, hash:/var/lib/mailman/data/aliases
+  relayhost: ''
+  
+isp3node::postfix::standalone::maincf:
+  alias_database: hash:/etc/aliases, hash:/var/lib/mailman/data/aliases
+  virtual_alias_maps: hash:/var/lib/mailman/data/virtual-mailman, proxy:mysql:/etc/postfix/mysql-virtual_forwardings.cf, proxy:mysql:/etc/postfix/mysql-virtual_email2email.cf
+  virtual_mailbox_domains: proxy:mysql:/etc/postfix/mysql-virtual_domains.cf
+  virtual_mailbox_maps: proxy:mysql:/etc/postfix/mysql-virtual_mailboxes.cf
+  virtual_mailbox_base: /var/vmail
+  virtual_uid_maps: mysql:/etc/postfix/mysql-virtual_uids.cf                                                                                                                                                                                   
+  virtual_gid_maps: mysql:/etc/postfix/mysql-virtual_gids.cf
+  sender_bcc_maps: proxy:mysql:/etc/postfix/mysql-virtual_outgoing_bcc.cf
+  smtpd_sasl_auth_enable: 'yes'
+  broken_sasl_auth_clients: 'yes'
+  smtpd_sasl_authenticated_header: 'yes'
+  smtpd_restriction_classes: greylisting
+  greylisting: check_policy_service inet:127.0.0.1:10023
+  smtpd_tls_security_level: may
+  transport_maps: hash:/var/lib/mailman/data/transport-mailman, proxy:mysql:/etc/postfix/mysql-virtual_transports.cf                                                                                                                           
+  relay_domains: mysql:/etc/postfix/mysql-virtual_relaydomains.cf
+  relay_recipient_maps: mysql:/etc/postfix/mysql-virtual_relayrecipientmaps.cf
+  smtpd_sender_login_maps: proxy:mysql:/etc/postfix/mysql-virtual_sender_login_maps.cf
+  proxy_read_maps: $local_recipient_maps $mydestination $virtual_alias_maps $virtual_alias_domains $sender_bcc_maps $virtual_mailbox_maps $virtual_mailbox_domains $relay_recipient_maps $relay_domains $canonical_maps $sender_canonical_maps $recipient_canonical_maps $relocated_maps $transport_maps $mynetworks $smtpd_sender_login_maps
+  smtpd_helo_required: 'yes'
+  smtpd_helo_restrictions: permit_sasl_authenticated, permit_mynetworks, check_helo_access regexp:/etc/postfix/helo_access, reject_invalid_hostname, reject_non_fqdn_hostname, reject_invalid_helo_hostname, reject_unknown_helo_hostname, check_helo_access regexp:/etc/postfix/blacklist_helo
+  smtpd_sender_restrictions: check_sender_access regexp:/etc/postfix/tag_as_originating.re , permit_mynetworks, permit_sasl_authenticated, check_sender_access mysql:/etc/postfix/mysql-virtual_sender.cf, check_sender_access regexp:/etc/postfix/tag_as_foreign.re
+  #smtpd_client_restrictions: check_client_access mysql:/etc/postfix/mysql-virtual_client.cf
+  smtpd_client_message_rate_limit: '100'
+  maildrop_destination_concurrency_limit: '1'
+  maildrop_destination_recipient_limit: '1'
+  virtual_transport: dovecot
+  header_checks: regexp:/etc/postfix/header_checks
+  mime_header_checks: regexp:/etc/postfix/mime_header_checks
+  nested_header_checks: regexp:/etc/postfix/nested_header_checks
+  body_checks: regexp:/etc/postfix/body_checks
+  owner_request_special: 'no'
+  smtp_tls_security_level: may
+  smtpd_tls_mandatory_protocols: '!SSLv2, !SSLv3'
+  smtpd_tls_protocols: '!SSLv2,!SSLv3'
+  smtp_tls_protocols: '!SSLv2,!SSLv3'
+  smtpd_tls_exclude_ciphers: RC4, aNULL
+  smtp_tls_exclude_ciphers: RC4, aNULL
+  dovecot_destination_recipient_limit: '1'
+  smtpd_sasl_type: dovecot
+  smtpd_sasl_path: private/auth
+  #content_filter: amavis:[127.0.0.1]:10024
+  receive_override_options: no_address_mappings
+  message_size_limit: '0'
+  # Additions for hardening 
+  smtpd_client_restrictions: check_client_access mysql:/etc/postfix/mysql-virtual_client.cf
+  smtpd_recipient_restrictions: permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination, reject_rbl_client zen.spamhaus.org, check_recipient_access mysql:/etc/postfix/mysql-virtual_recipient.cf, check_recipient_access mysql:/etc/postfix/mysql-virtual_policy_greylist.cf
+  smtpd_data_restrictions: reject_unauth_pipelining
+  smtpd_delay_reject: 'yes'
+  strict_rfc821_envelopes: 'yes'
+  policy-spf_time_limit: 3600s
 
 isp3node::dovecot::setup::packages: 
   - dovecot-core
@@ -27,6 +83,7 @@ isp3node::dovecot::setup::packages:
   - dovecot-mysql
   - dovecot-sieve
   - dovecot-lmtpd
+
 isp3node::dovecot::setup::additional_packages:
   - getmail4
   - clamav

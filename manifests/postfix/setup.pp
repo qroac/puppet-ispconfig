@@ -22,7 +22,7 @@ class isp3node::postfix::setup(
     # ? use_dovecot_lda = true,
   }
   class {'postfix':
-    * => $options + $default_opts
+    *          => $options + $default_opts
   }
   -> package{$additional_packages:
     ensure => latest,

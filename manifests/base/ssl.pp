@@ -55,10 +55,20 @@ class isp3node::base::ssl(
       package_ensure    => 'latest',
       renew_cron_ensure => present,
     }
-    letsencrypt::certonly { $facts['fqdn']:
-      domains              => [$facts['fqdn']] + $domains,
-      deploy_hook_commands => $deployhooks + $le_deploycommands,
+    unless($facts['isp3node']['nginx']['installed']){
+      letsencrypt::certonly { $facts['fqdn']:
+        domains              => [$facts['fqdn']] + $domains,
+        deploy_hook_commands => $deployhooks + $le_deploycommands,
+      }
+    } else {
+      letsencrypt::certonly { $facts['fqdn']:
+        domains              => [$facts['fqdn']] + $domains,
+        deploy_hook_commands => $deployhooks + $le_deploycommands,
+        plugin               => 'webroot',
+        webroot_paths        => ['/var/www/default']
+      }
     }
+
     file{"/etc/ssl/local/${facts['fqdn']}.crt":
       ensure => link,
       target => "/etc/letsencrypt/live/${facts['fqdn']}/cert.pem",

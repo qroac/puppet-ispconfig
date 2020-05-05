@@ -5,7 +5,6 @@
 # @example
 #   include isp3node::postfix::standalone
 class isp3node::postfix::standalone(
-  Hash $maincf,
   Hash $options,
 ) {
   $mynetworks = ['127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128']
@@ -16,16 +15,17 @@ class isp3node::postfix::standalone(
   }
 
   $myoptions = $options + {
-    mta        => true,
+    # Not using modules mta settings here, too less configurable. 
+    # mta        => true,
     relayhost  => 'direct',
     mynetworks => join($mynetworks + $mysatellites, ' '),
   }
   class{'isp3node::postfix::setup':
     options => $myoptions,
   }
-  #$maincf.each |$param, $setting| {
-  #  postfix::config{$param:
-  #    value   => $setting,
-  #  }
-  #}
+  postfix::config {
+    'relayhost':     ensure => 'blank';
+    'mydestination': value => "${facts[fqdn]}, localhost, localhost.localdomain";
+    'mynetworks':    value => join($mynetworks + $mysatellites, ' ');
+  }
 }

@@ -8,6 +8,7 @@ class isp3node::dovecot::ssl {
   $dovecot_settings = {'' => {
     ssl_cert => "</etc/ssl/local/${facts['fqdn']}.bundle.crt",
     ssl_key  => "</etc/ssl/local/${facts['fqdn']}.key",
+    ssl_dh   => '</etc/ssl/local/dhparam.pem',
   }}
   create_ini_settings($dovecot_settings, { path => '/etc/dovecot/dovecot.conf'})
   unless (lookup('isp3node::base::ssl::letsencrypt', undef, undef, false)){

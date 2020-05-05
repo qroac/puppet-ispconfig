@@ -4,7 +4,9 @@
 #
 # @example
 #   include isp3node::nginx::setup
-class isp3node::nginx::setup {
+class isp3node::nginx::setup(
+  Hash $ispsettings,
+) {
   # Ensure a2 is not running
   service{'apache2':
     ensure => stopped,
@@ -12,6 +14,7 @@ class isp3node::nginx::setup {
   }
   class{'nginx':
     manage_repo    => true,
-    package_source => 'nginx-stable'
-}
+    package_source => 'nginx-stable',
+    *              => $ispsettings,
+  }
 }

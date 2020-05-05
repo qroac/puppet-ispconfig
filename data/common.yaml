@@ -24,6 +24,30 @@ isp3node::mariadb::setup::additional_packages:
   - dbconfig-common
   - dbconfig-mysql
 
+isp3node::nginx::setup::ispsettings:
+  log_format:
+    anonymized: '$ip_anonymized - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"'
+  string_mappings:
+    ip_anonym1:
+      string: '$remote_addr'
+      default: '0.0.0'
+      mappings:
+        '"~(?P<ip>(\d+)\.(\d+)\.(\d+))\.\d+"': '$ip'
+        '"~(?P<ip>[^:]+:[^:]+):"': '$ip'
+    ip_anonym2:
+      string: '$remote_addr'
+      default: '.0'
+      mappings:
+          '"~(?P<ip>(\d+)\.(\d+)\.(\d+))\.\d+"': '.0'
+          '"~(?P<ip>[^:]+:[^:]+):"': '::'
+    ip_anonymized:
+      string: '$ip_anonym1$ip_anonym2'
+      default: '0.0.0.0'
+      mappings:
+        '"~(?P<ip>.*)"': '$ip'
+
+# IMPORTANT! Set this on environment level!
+#postfix::params::master_os_template: isp3node/postfix/master.cf.debian.erb
 isp3node::postfix::setup::master_submission: |
   submission inet n - y - - smtpd
     -o syslog_name=postfix/submission

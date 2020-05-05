@@ -5,7 +5,9 @@ Facter.add(:isp3node) do
       :bind      => bind,
       :dovecot   => dovecot,
       :fail2ban  => fail2ban,
+      :ispconfig => ispconfig,
       :jailkit   => jailkit,
+      :mailman   => mailman,
       :mysql     => mysql,
       :nginx     => nginx,
       :postfix   => postfix,
@@ -47,6 +49,17 @@ def fail2ban()
   f2b
 end
 
+def ispconfig()
+  isp = {
+    :installed => File.exists?('/usr/local/ispconfig')
+  }
+  if(isp[:installed])
+    isp[:version_interface] = Facter::Core::Execution.execute('grep "\'ISPC_APP_VERSION\'" /usr/local/ispconfig/interface/lib/config.inc.php | cut -d "\'" -f 4', {on_fail: false}),
+    isp[:version_server] = Facter::Core::Execution.execute('grep "\'ISPC_APP_VERSION\'" /usr/local/ispconfig/server/lib/config.inc.php | cut -d "\'" -f 4', {on_fail: false})
+  end
+  isp
+end
+
 def jailkit()
   jk = {
     :installed => package_installed?('jailkit')
@@ -55,6 +68,16 @@ def jailkit()
     jk[:version] = package_version('jailkit')
   end
   jk
+end
+
+def mailman()
+  mm = {
+    :installed => package_installed?('mailman')
+  }
+  if(mm[:installed])
+    mm[:version] = package_installed?('mailman')
+  end
+  mm
 end
 
 def mysql()

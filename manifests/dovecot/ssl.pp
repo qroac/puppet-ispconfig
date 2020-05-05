@@ -10,7 +10,10 @@ class isp3node::dovecot::ssl {
     ssl_key  => "</etc/ssl/local/${facts['fqdn']}.key",
     ssl_dh   => '</etc/ssl/local/dhparam.pem',
   }}
-  create_ini_settings($dovecot_settings, { path => '/etc/dovecot/dovecot.conf'})
+  create_ini_settings($dovecot_settings, {
+    path => '/etc/dovecot/dovecot.conf',
+    notify => Service['dovecot'],
+  })
   unless (lookup('isp3node::base::ssl::letsencrypt', undef, undef, false)){
     File["/etc/ssl/local/${facts['fqdn']}.bundle.crt"] ~> Service['dovecot']
   }

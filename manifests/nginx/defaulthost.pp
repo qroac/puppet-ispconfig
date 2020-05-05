@@ -34,6 +34,8 @@ class isp3node::nginx::defaulthost {
   nginx::resource::server { "${facts['fqdn']}-http":
     ensure              => present,
     server_name         => [$facts['fqdn']],
+    listen_ip           => $facts['networking']['ip'],
+    ipv6_listen_ip      => $facts['networking']['ip6'],
     www_root            => '/var/www/default',
     location_cfg_append => {
       'rewrite' => '^ https://$server_name$request_uri? permanent'
@@ -41,12 +43,14 @@ class isp3node::nginx::defaulthost {
   }
 
   nginx::resource::server { $facts['fqdn']:
-    ensure      => present,
-    listen_port => 443,
-    www_root    => '/var/www/default',
-    ssl         => true,
-    ssl_cert    => "/etc/ssl/local/${facts['fqdn']}.bundle.crt",
-    ssl_key     => "/etc/ssl/local/${facts['fqdn']}.key",
+    ensure         => present,
+    listen_port    => 443,
+    listen_ip      => $facts['networking']['ip'],
+    ipv6_listen_ip => $facts['networking']['ip6'],
+    www_root       => '/var/www/default',
+    ssl            => true,
+    ssl_cert       => "/etc/ssl/local/${facts['fqdn']}.bundle.crt",
+    ssl_key        => "/etc/ssl/local/${facts['fqdn']}.key",
   }
 
   unless (lookup('isp3node::base::ssl::letsencrypt', undef, undef, false)){

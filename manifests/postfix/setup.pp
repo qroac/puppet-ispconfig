@@ -9,12 +9,12 @@ class isp3node::postfix::setup(
   String $master_submission,
   String $master_smtps,
   Hash $ispopts = {}, # applied to postfix main class
+  Optional[Hash] $ispopts_mailman = {},
   Hash $ispconf = {}, # applied as additional config resource
-  Hash $ispsettings_mailman = {},
+  Hash $ispconf_mailman = {},
   Optional[Boolean] $mailman = false,
   Optional[Array[String]] $additional_packages = [],
 ) {
-  # TODO merge strings in ispsettings_mailman into ispsettings if mailman is installed, keep main config clean
   $default_opts = {
     root_mail_recipient => lookup('isp3node::email'),
     myorigin => $facts['fqdn'],
@@ -25,16 +25,35 @@ class isp3node::postfix::setup(
     # ? use_amavisd => true,
     # ? use_dovecot_lda = true,
   }
-  class {'postfix':
-    * => $options + $default_opts + $ispopts
+  unless($facts['isp3node']['mailman']['installed']){
+    class {'postfix':
+      * => $options + $default_opts + $ispopts
+    }
+  } else{
+    class {'postfix':
+      * => $options + $default_opts + $ispopts + $ispopts_mailman
+    }
   }
-  -> package{$additional_packages:
-    ensure => latest,
+  package{$additional_packages:
+    ensure  => latest,
+    require => Class['postfix'],
   }
-  $ispconf.each |$s, $v| {
-    postfix::config{$s:
-      ensure => present,
-      value  => $v,
+  # Add ispconfig settings only if ispconfig server is installed!
+  if($facts['isp3node']['ispconfig']['installed']){
+    unless($facts['isp3node']['mailman']['installed']){
+      $ispconf.each |$s, $v| {
+        postfix::config{$s:
+          ensure => present,
+          value  => $v,
+        }
+      }
+    } else {
+      ($ispconf + $ispconf_mailman).each |$s, $v| {
+        postfix::config{$s:
+          ensure => present,
+          value  => $v,
+        }
+      }
     }
   }
 }

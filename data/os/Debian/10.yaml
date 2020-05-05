@@ -23,8 +23,14 @@ isp3node::postfix::standalone::options:
   relayhost: ''
 
 isp3node::postfix::setup::ispopts:
+  alias_maps: hash:/etc/aliases
+isp3node::postfix::setup::ispopts_mailman:
   alias_maps: hash:/etc/aliases, hash:/var/lib/mailman/data/aliases
 isp3node::postfix::setup::ispconf:
+  alias_database: hash:/etc/aliases
+  virtual_alias_maps: proxy:mysql:/etc/postfix/mysql-virtual_forwardings.cf, proxy:mysql:/etc/postfix/mysql-virtual_email2email.cf
+  transport_maps: proxy:mysql:/etc/postfix/mysql-virtual_transports.cf
+isp3node::postfix::setup::ispconf_mailman:
   alias_database: hash:/etc/aliases, hash:/var/lib/mailman/data/aliases
   virtual_alias_maps: hash:/var/lib/mailman/data/virtual-mailman, proxy:mysql:/etc/postfix/mysql-virtual_forwardings.cf, proxy:mysql:/etc/postfix/mysql-virtual_email2email.cf
   transport_maps: hash:/var/lib/mailman/data/transport-mailman, proxy:mysql:/etc/postfix/mysql-virtual_transports.cf

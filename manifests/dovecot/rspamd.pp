@@ -16,8 +16,7 @@ class isp3node::dovecot::rspamd(
   if($nameserver) {
     package{$nameserver: ensure => latest}
   }
-
-  class { 'rspamd': }
+  class { 'rspamd': purge_unmanaged => false}
   rspamd::create_config_file_resources($config)
 
   Class['isp3node::redis'] -> Class['rspamd']

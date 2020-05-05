@@ -8,6 +8,7 @@ class isp3node::nginx::setup {
   # Ensure a2 is not running
   service{'apache2':
     ensure => stopped,
+    enable => false,
   }
   class{'nginx':
     manage_repo    => true,

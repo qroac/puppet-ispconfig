@@ -5,8 +5,11 @@
 # @example
 #   include isp3node::nginx::defaulthost
 class isp3node::nginx::defaulthost {
-  file{'/var/www/default':
-    ensure => directory,
+  file{'/var/www':
+    ensure  => directory,
+  }
+  -> file{'/var/www/default':
+    ensure  => directory,
   }
   -> concat{'/var/www/default/index.html':
     ensure  => present,

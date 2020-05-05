@@ -6,6 +6,5 @@
 # @example
 #   include isp3node::base::puppet
 class isp3node::base::puppet {
-  file{'/usr/local/ispconfig': ensure => directory }
-  -> file{'/usr/local/ispconfig/puppet': ensure => directory}
+  file{'/usr/local/ispconfig-puppet': ensure => directory}
 }

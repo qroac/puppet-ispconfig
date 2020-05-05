@@ -12,9 +12,10 @@ class isp3node::mariadb::configuration(
 ) {
   exec{'enalbe native password for root':
     command => "mysql -uroot -p${root_password} -D mysql -e \"update mysql.user set plugin = 'mysql_native_password' where user = 'root';\" \
-  && touch /usr/local/ispconfig/puppet/mariadb_rootuser_plugin_set",
-    creates => '/usr/local/ispconfig/puppet/mariadb_rootuser_plugin_set',
+  && touch /usr/local/ispconfig-puppet/mariadb_rootuser_plugin_set",
+    creates => '/usr/local/ispconfig-puppet/mariadb_rootuser_plugin_set',
     path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+    require => File['/usr/local/ispconfig-puppet'],
   }
   -> file{'/etc/mysql/debian.cnf':
     ensure  => file,

@@ -55,7 +55,9 @@ class isp3node::base::ssl(
       package_ensure    => 'latest',
       renew_cron_ensure => present,
     }
-    unless($facts['isp3node']['nginx']['installed']){
+    unless($facts['isp3node']['nginx']['installed'] and
+      ('80/tcp' in $facts['isp3node']['ports'] or '80/tcp6' in $facts['isp3node']['ports'])
+    ){
       letsencrypt::certonly { $facts['fqdn']:
         domains              => [$facts['fqdn']] + $domains,
         deploy_hook_commands => $deployhooks + $le_deploycommands,

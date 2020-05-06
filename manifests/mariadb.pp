@@ -15,6 +15,7 @@ class isp3node::mariadb(
   -> class {'isp3node::mariadb::configuration':
     root_password => $root_password,
   }
+  -> class {'isp3node::mariadb::connect_master':}
   # TODO Control Port in firewall dependent on listen state
   # TODO Introduce parameter Bool $restricted, to open port in firewall only for other isp nodes
 }

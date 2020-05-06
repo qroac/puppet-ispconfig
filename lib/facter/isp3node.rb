@@ -13,8 +13,14 @@ Facter.add(:isp3node) do
       :postfix   => postfix,
       :pureftpd  => pureftpd,
       :roundcube => roundcube,
+      :ports     => listen_ports,
     }
   end
+end
+
+def listen_ports()
+  portlist = Facter::Core::Execution.execute("netstat -tulpn | grep LISTEN | awk '{ print $4\"/\"$1 }' | rev | cut -d ':' -f 1 | rev", {on_fail: ''}).split("\n")
+  portlist
 end
 
 def bind()

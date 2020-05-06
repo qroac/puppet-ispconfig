@@ -41,6 +41,9 @@ def dovecot()
   if(d[:installed])
     d[:version] = package_version('dovecot-core')
     d[:rspamd] = package_version('rspamd')
+    Dir.chdir('/var/vmail') do
+      d[:domains] = Dir.glob('*.*').select{|f| File.directory? f}
+    end
   end
   d
 end

@@ -27,11 +27,11 @@ class isp3node::roundcube::config {
     server        => $facts['fqdn'],
     ssl           => true,
     ssl_only      => true,
-    location      => '/webmail',
+    location      => '/webmail/',
     rewrite_rules => ['^/* /squirrelmail last']
   }
   isp3node::nginx::startpageentry { 'roundcube':
     verbose_name => 'Webmail',
-    path         => '/webmail',
+    path         => '/roundcube/',
   }
 }

@@ -108,4 +108,31 @@ class isp3node::base::ssl(
       mode    => '0400',
     }
   }
+  # If ISP is installed and this is the master, place certificate for ispconfig panel
+  if($facts['isp3node']['ispconfig']['installed'] and $facts['fqdn'] == lookup('isp3node::master')){
+    file{'ispconfig-interface-ssl-cert':
+      ensure  => link,
+      path    => '/usr/local/ispconfig/interface/ssl/ispserver.crt',
+      target  => "/etc/ssl/local/${facts['fqdn']}.bundle.crt",
+      backup  => '.puppet-bak',
+      replace => true,
+      mode    => '0440',
+      owner   => 'root',
+      group   => 'root',
+      require => File["/etc/ssl/local/${facts['fqdn']}.bundle.crt"],
+      notify  => Service['nginx'],
+    }
+    file{'ispconfig-interface-ssl-key':
+      ensure  => link,
+      path    => '/usr/local/ispconfig/interface/ssl/ispserver.key',
+      target  => "/etc/ssl/local/${facts['fqdn']}.key",
+      backup  => '.puppet-bak',
+      replace => true,
+      mode    => '0440',
+      owner   => 'root',
+      group   => 'root',
+      require => File["/etc/ssl/local/${facts['fqdn']}.key"],
+      notify  => Service['nginx'],
+    }
+  }
 }

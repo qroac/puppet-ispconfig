@@ -7,7 +7,10 @@
 class isp3node::nginx {
   include isp3node::nginx::setup
   include isp3node::nginx::defaulthost
+  include isp3node::nginx::ispproxyhost
 
   Class['isp3node::nginx::setup']
   -> Class['isp3node::nginx::defaulthost']
+  Class['isp3node::nginx::setup']
+  -> Class['isp3node::nginx::ispproxyhost']
 }

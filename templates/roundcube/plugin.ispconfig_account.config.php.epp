@@ -1,0 +1,6 @@
+<?php
+$config['identity_limit'] = false;
+$config['remote_soap_user'] = '<%= $api_user %>';
+$config['remote_soap_pass'] = '<%= $api_pass %>';
+$config['soap_url'] = 'https://<%= $api_host %>:8080/remote/';
+$config['soap_validate_cert'] = true;

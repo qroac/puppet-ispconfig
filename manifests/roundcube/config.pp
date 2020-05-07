@@ -6,7 +6,6 @@
 #   include isp3node::roundcube::config
 class isp3node::roundcube::config {
   $settings = {'' => {
-    '$config[\'default_host\']' => '\'localhost\';',
     '$config[\'smtp_server\']'  => '\'localhost\';',
   }}
   create_ini_settings($settings, {path => '/etc/roundcube/config.inc.php'})

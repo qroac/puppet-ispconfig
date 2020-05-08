@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Defined Type: isp3node::phpmyadmin::pmanode
+  
+    &mdash; Documentation by YARD 0.9.24
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "puppet_defined_types::isp3node::phpmyadmin::pmanode";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_defined_type_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (i)</a> &raquo;
+    <span class='title'><span class='object_link'>Defined Types</span></span>
+     &raquo; 
+    <span class="title">isp3node::phpmyadmin::pmanode</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Defined Type: isp3node::phpmyadmin::pmanode</h1>
+<div class="box_info">
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/phpmyadmin/pmanode.pp
+    </dd>
+  </dl>
+</div>
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<p>== Class: phpmyadmin::servernode</p>
+
+<p>Defines a server usable to phpmyadmin. Can either use exported resources or
+as a defined resource</p>
+
+<p>=== Parameters [<em>myserver_name</em>]  What to name the server and use
+for accessing it in phpmyadmin. This can be set to an ip address, hostname
+or fqdn.  It default to the defined resource name [<em>server_group</em>] 
+If used as a defined resource, this will be used to select which servers to
+install for a specific phpmyadmin instance. [<em>verbose_name</em>]  The
+name which will appear in the list of servers (default: $name)
+[<em>hide_db</em>]  A regex describing the database names to hide (default:
+&#39;&#39;)</p>
+
+<p>=== Examples</p>
+
+<p>phpmyadmin::servernode { “$fqdn”:  myserver_name =&gt; $::fqdn, 
+server_group =&gt; &#39;default&#39;,  }</p>
+
+<p>@@phpmyadmin::servernode { “$fqdn”:  server_group =&gt;
+&#39;default&#39;,  }</p>
+
+<p>=== Authors</p>
+
+<p>Justice London <a
+href="mailto:jlondon@syrussystems.com">jlondon@syrussystems.com</a></p>
+
+<p>=== Copyright</p>
+
+<p>Copyright 2013 Justice London, unless otherwise noted.</p>
+
+  </div>
+</div>
+
+
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>server_group</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>target</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>controluser</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>controlpass</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>myserver_name</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$name</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>verbose_name</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$name</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>hide_db</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;&#39;</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/phpmyadmin/pmanode.pp', line 35</span>
+
+define isp3node::phpmyadmin::pmanode (
+  $server_group,
+  $target,
+  $controluser,
+  $controlpass,
+  $myserver_name = $name,
+  $verbose_name  = $name,
+  $hide_db       = &#39;&#39;,
+) {
+  #Variable validations
+  validate_string($server_group)
+  validate_string($myserver_name)
+  validate_absolute_path($target)
+
+  #Generate a server entry for the realized server ON the phpmyadmin server
+  concat::fragment { &quot;${server_group}_phpmyadmin_server_${name}&quot;:
+    order   =&gt; &quot;20-${server_group}-${myserver_name}&quot;,
+    target  =&gt; $target,
+    content =&gt; epp(&#39;isp3node/phpmyadmin/config.node.part&#39;, {
+      myserver_name =&gt; $myserver_name,
+      verbose_name  =&gt; $verbose_name,
+      hide_db       =&gt; $hide_db,
+      controluser   =&gt; $controluser,
+      controlpass   =&gt; $controlpass,
+    }),
+  }
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: isp3node::base::ssl
+  
+    &mdash; Documentation by YARD 0.9.24
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "puppet_classes::isp3node::base::ssl";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (i)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">isp3node::base::ssl</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: isp3node::base::ssl</h1>
+<div class="box_info">
+  
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/base/ssl.pp
+    </dd>
+  </dl>
+</div>
+
+  <h2>Summary</h2>
+  Manage the servers local main ssl certificate
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<p>Place the certificate from hiera to a known location or obtain from Lets
+Encrypt and create symlinks. Further replace SSL key and cert of ISPConfig
+as soon as it is installed. For Lets Encrypt, a list of renewal jobs can be
+registered to execute e.g. service reloads after certificate renewals.</p>
+
+  </div>
+</div>
+
+
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_isp3node'>isp3node</span><span class='op'>::</span><span class='id identifier rubyid_base'>base</span><span class='op'>::</span><span class='id identifier rubyid_ssl'>ssl</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>dhparamsize</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>2048</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Bitsize of the DH Params file</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>letsencrypt</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Obtain certificate from letsencrypt</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>le_deploycommands</span>
+      
+      
+        <span class='type'>(<tt>Optional[Array[String]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[&#39;systemctl restart postfix&#39;]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Commands to execute after each successful LE certificate deployment</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>email</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>lookup(&#39;isp3node::email&#39;, undef, undef, undef)</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Mail address for notifications from LE CA</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cert</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Certificate, if LE is not used</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ca</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>CA Cert, if LE is not used</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Private Key, if LE is not used</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/base/ssl.pp', line 26</span>
+
+class isp3node::base::ssl(
+  Integer $dhparamsize = 2048,
+  Optional[Boolean] $letsencrypt = true,
+  # TODO Need a better way to restart services after cert renewal ... Maybe a restart script and every service adds itself with concat?
+  Optional[Array[String]] $le_deploycommands = [&#39;systemctl restart postfix&#39;],
+  Optional[String] $email = lookup(&#39;isp3node::email&#39;, undef, undef, undef),
+  Optional[String] $cert = undef,
+  Optional[String] $ca = undef,
+  Optional[String] $key = undef,
+) {
+  # TODO add option to switch to webroot for servers running nginx
+  File{
+    owner =&gt; root,
+    group =&gt; root,
+    mode  =&gt; &#39;0444&#39;,
+  }
+  file{&#39;/etc/ssl/local&#39;:
+    ensure =&gt; directory,
+  }
+  exec{&#39;ssl-dhparam&#39;:
+    command =&gt; &quot;openssl dhparam -out /etc/ssl/local/dhparam.pem ${dhparamsize}&quot;,
+    require =&gt; [File[&#39;/etc/ssl/local&#39;]],
+    creates =&gt; &#39;/etc/ssl/local/dhparam.pem&#39;,
+    path    =&gt; $facts[&#39;path&#39;],
+    timeout =&gt; 1800,
+  }
+  if($letsencrypt) {
+    # Deploy hook to generate pem containing the key
+    $deployhooks = [
+      &quot;cat /etc/letsencrypt/live/${facts[&#39;fqdn&#39;]}/privkey.pem &gt; /etc/ssl/local/${facts[&#39;fqdn&#39;]}.keybundle.pem&quot;,
+      &quot;cat /etc/letsencrypt/live/${facts[&#39;fqdn&#39;]}/fullchain.pem &gt;&gt; /etc/ssl/local/${facts[&#39;fqdn&#39;]}.keybundle.pem&quot;,
+      &quot;chmod 600 /etc/ssl/local/${facts[&#39;fqdn&#39;]}.keybundle.pem&quot;,
+    ]
+    class { &#39;letsencrypt&#39;:
+      email             =&gt; $email,
+      package_ensure    =&gt; &#39;latest&#39;,
+      renew_cron_ensure =&gt; present,
+    }
+    unless($facts[&#39;isp3node&#39;][&#39;nginx&#39;][&#39;installed&#39;] and
+      (&#39;80/tcp&#39; in $facts[&#39;isp3node&#39;][&#39;ports&#39;] or &#39;80/tcp6&#39; in $facts[&#39;isp3node&#39;][&#39;ports&#39;])
+    ){
+      letsencrypt::certonly { $facts[&#39;fqdn&#39;]:
+        domains              =&gt; [$facts[&#39;fqdn&#39;]],
+        deploy_hook_commands =&gt; $deployhooks + $le_deploycommands,
+      }
+    } else {
+      letsencrypt::certonly { $facts[&#39;fqdn&#39;]:
+        domains              =&gt; [$facts[&#39;fqdn&#39;]],
+        deploy_hook_commands =&gt; $deployhooks + $le_deploycommands,
+        plugin               =&gt; &#39;webroot&#39;,
+        webroot_paths        =&gt; [&#39;/var/www/default&#39;]
+      }
+    }
+
+    file{&quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.crt&quot;:
+      ensure =&gt; link,
+      target =&gt; &quot;/etc/letsencrypt/live/${facts[&#39;fqdn&#39;]}/cert.pem&quot;,
+    }
+    file{&quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.bundle.crt&quot;:
+      ensure =&gt; link,
+      target =&gt; &quot;/etc/letsencrypt/live/${facts[&#39;fqdn&#39;]}/fullchain.pem&quot;,
+    }
+    file{&#39;/etc/ssl/local/ca.crt&#39;:
+      ensure =&gt; link,
+      target =&gt; &quot;/etc/letsencrypt/live/${facts[&#39;fqdn&#39;]}/chain.pem&quot;,
+    }
+    file{&quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.key&quot;:
+      ensure =&gt; link,
+      target =&gt; &quot;/etc/letsencrypt/live/${facts[&#39;fqdn&#39;]}/privkey.pem&quot;,
+      mode   =&gt; &#39;0400&#39;,
+    }
+  }
+  else {
+    file{&quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.crt&quot;:
+      ensure  =&gt; file,
+      content =&gt; $cert,
+    }
+    file{&quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.bundle.crt&quot;:
+      ensure  =&gt; link,
+      content =&gt; &quot;${cert}\n${ca}&quot;
+    }
+    file{&#39;/etc/ssl/local/ca.crt&#39;:
+      ensure  =&gt; file,
+      content =&gt; $ca,
+    }
+    file{&quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.key&quot;:
+      ensure  =&gt; file,
+      content =&gt; $key,
+      mode    =&gt; &#39;0400&#39;,
+    }
+  }
+  # If ISP is installed and this is the master, place certificate for ispconfig panel
+  if($facts[&#39;isp3node&#39;][&#39;ispconfig&#39;][&#39;installed&#39;] and $facts[&#39;fqdn&#39;] == lookup(&#39;isp3node::master&#39;)){
+    file{&#39;ispconfig-interface-ssl-cert&#39;:
+      ensure  =&gt; link,
+      path    =&gt; &#39;/usr/local/ispconfig/interface/ssl/ispserver.crt&#39;,
+      target  =&gt; &quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.bundle.crt&quot;,
+      backup  =&gt; &#39;.puppet-bak&#39;,
+      replace =&gt; true,
+      mode    =&gt; &#39;0440&#39;,
+      owner   =&gt; &#39;root&#39;,
+      group   =&gt; &#39;root&#39;,
+      require =&gt; File[&quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.bundle.crt&quot;],
+      notify  =&gt; Service[&#39;nginx&#39;],
+    }
+    file{&#39;ispconfig-interface-ssl-key&#39;:
+      ensure  =&gt; link,
+      path    =&gt; &#39;/usr/local/ispconfig/interface/ssl/ispserver.key&#39;,
+      target  =&gt; &quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.key&quot;,
+      backup  =&gt; &#39;.puppet-bak&#39;,
+      replace =&gt; true,
+      mode    =&gt; &#39;0440&#39;,
+      owner   =&gt; &#39;root&#39;,
+      group   =&gt; &#39;root&#39;,
+      require =&gt; File[&quot;/etc/ssl/local/${facts[&#39;fqdn&#39;]}.key&quot;],
+      notify  =&gt; Service[&#39;nginx&#39;],
+    }
+  }
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,22 +1,3 @@
-# FACTS
-
-Status ISPConfig: 
-- Installiert?
-- Version
-- Angebotene Services
-- Config Kram aus ISP Server Config?
-
-Mailserver:
-ISPConfig Mail Domains auf dem System
-- Domain
-- DNS Host (MX) (automatisch per prefix `mail.`? in hiera festgelegt?)
-- DNS Host valide (löst DNS auf mich auf?)
-
-# Notes
-LE Zertifikat für Dienste kann Hostnamen von Kundendomains einschließen
-Liste aus Mailserver Fact, gefiltert auf valide aufgelöste!
-z.B. für Mailserver: mail.autark-app.de
-
 # isp3node
 
 This module manages the installation and configuration of all services and tools required to run an ISPConfig server node.

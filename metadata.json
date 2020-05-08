@@ -2,7 +2,7 @@
   "name": "qroac-isp3node",
   "version": "0.1.0",
   "author": "Michael Fürmann",
-  "summary": "",
+  "summary": "Install services and tools required for webhosting managed by ISPConfig 3",
   "license": "MIT",
   "source": "",
   "dependencies": [
@@ -55,13 +55,7 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "9"
-      ]
-    },
-    {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [
-        "18.04"
+        "10"
       ]
     }
   ],

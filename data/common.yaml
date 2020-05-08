@@ -11,9 +11,9 @@ lookup_options:
 
 # For list of attributes, see https://puppet.com/docs/puppet/5.5/types/host.html
 #isp3node::base::hosts::entries:
-#  openwrt.fdb.fuermann.net:
+#  my.hostname.de:
 #    ensure: present
-#    ip: 192.168.10.1
+#    ip: 192.168.0.1
 
 isp3node::description: A Puppet-managed ISPConfig3 Server Node
 
@@ -62,7 +62,13 @@ isp3node::postfix::setup::master_smtps: |
     -o smtpd_sasl_auth_enable=yes
     -o smtpd_client_restrictions=permit_sasl_authenticated,reject
 
-#isp3node::postfix::satellite::relay: my.relay.server.de
+isp3node::dovecot::rspamd::config:
+  redis:
+    servers: 127.0.0.1
+  history_redis:
+      nrows: 2500
+      compress: true
+      subject_privacy: false
 
 isp3node::php::setup::version: "7.3"
 isp3node::php::setup::sets:
@@ -160,7 +166,7 @@ isp3node::php::setup::sets:
       - fpm
 
 # Set up a web frontend or just list the server on other frontends
-isp3node::phpmyadmin::frontend: false
+isp3node::phpmyadmin::frontend: true
 isp3node::phpmyadmin::setup::source: 
   url: https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-all-languages.tar.gz
   checksum: 1bd82fdcf5375526c8b5124a20968b69981724307d878321ae29499c61bbf48e
@@ -170,9 +176,6 @@ isp3node::phpmyadmin::setup::source:
 isp3node::phpmyadmin::setup::controluser: ispconfig-pma
 # Set your own !
 # isp3node::phpmyadmin::setup::controlpass: ispconfig-pma-pass
-# Create the hash by executing in a sql shell:
-# SELECT PASSWORD('my-password');
-# ispconfig3::phpmyadmin::controlpass_hash: '*B2BA8208A112BD88AFB6F58055F70725D4238156'
 
 isp3node::pureftpd::config::tlslevel: 1
 
@@ -190,15 +193,6 @@ isp3node::bind::setup::boost_entropy: false
 
 isp3node::webstats::setup::webalizer: true
 isp3node::webstats::setup::awstats: true
-isp3node::webstats::setup::packages:
-  - geoip-database
-  - libtimedate-perl
-  - libclass-dbi-mysql-perl
-isp3node::webstats::setup::packages_webalizer:
-  - webalizer
-isp3node::webstats::setup::packages_awstats:
-  - awstats
-isp3node::webstats::setup::awstats_cronfile: /etc/cron.d/awstats
 
 isp3node::jailkit::setup::source: https://olivier.sessink.nl/jailkit
 isp3node::jailkit::setup::file: jailkit-2.21.tar.gz
@@ -226,7 +220,7 @@ isp3node::fail2ban::setup::servicejails:
   roundcube:
     - roundcube-auth
   
-
+# TODO Not yet finished below here
 isp3node::roundcube::plugins::enabled:
   - jqueryui
   - ispconfig3_account

@@ -68,13 +68,6 @@ isp3node::dovecot::setup::additional_packages:
   - libdbd-mysql-perl
   - postgrey
 
-isp3node::dovecot::rspamd::config:
-  redis:
-    servers: 127.0.0.1
-  history_redis:
-      nrows: 2500
-      compress: true
-      subject_privacy: false
 # Nameserver package to install for rspamd
 isp3node::dovecot::rspamd::nameserver: unbound
 
@@ -90,8 +83,6 @@ isp3node::php::setup::sets:
 
 isp3node::mailman::setup::packages:
   - mailman
-#isp3node::mailman::configure::admin_email: me@mydomain.com
-#isp3node::mailman::configure::admin_password: setyourown!
 
 isp3node::pureftpd::setup::packages:
   - pure-ftpd-common
@@ -107,6 +98,16 @@ isp3node::bind::setup::packages:
 isp3node::bind::setup::entropy_packages:
   - haveged
 isp3node::bind::setup::entropy_service: haveged
+
+isp3node::webstats::setup::packages:
+  - geoip-database
+  - libtimedate-perl
+  - libclass-dbi-mysql-perl
+isp3node::webstats::setup::packages_webalizer:
+  - webalizer
+isp3node::webstats::setup::packages_awstats:
+  - awstats
+isp3node::webstats::setup::awstats_cronfile: /etc/cron.d/awstats
 
 
 isp3node::jailkit::setup::build_packages:

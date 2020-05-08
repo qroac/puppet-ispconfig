@@ -4,7 +4,10 @@
   "author": "Michael Fürmann",
   "summary": "Install services and tools required for webhosting managed by ISPConfig 3",
   "license": "MIT",
-  "source": "",
+  "source": "https://github.com/qroac/puppet-ispconfig",
+  "project_page": "",
+  "tags": ["hosting", "ispconfig"],
+  "issues_url": "https://github.com/qroac/puppet-ispconfig/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",

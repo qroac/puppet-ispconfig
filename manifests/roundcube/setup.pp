@@ -1,9 +1,9 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary Install Roundcube webmail from package management
 #
 # @example
 #   include isp3node::roundcube::setup
+# @param packages
+#   List of required packages for Roundcube
 class isp3node::roundcube::setup(
   Array[String] $packages
 ) {

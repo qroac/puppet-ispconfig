@@ -1,6 +1,8 @@
-# @summary A short summary of the purpose of this class
+# @summary Setup RSpamd service with web dashboard
 #
-# A description of what this class does
+# Installs and configures RSpamd
+# Further adds a nginx location at '/rspamd/' on the servers FQDN to access the dashboard
+# The dashboards access password is not managed by puppet, as it should be set in ispconfig later
 #
 # @example
 #   include isp3node::dovecot::rspamd

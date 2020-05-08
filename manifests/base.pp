@@ -1,5 +1,8 @@
-# @summary Run the full base setup for ispconfig server nodes
+# @summary Provieds the base installation required for all ISPConfig server nodes
 #
+# @param le_deploycommands
+#   If using Lets Encrypt, commands that need to be executed after deployment of 
+#   renewed certificates. E.g. restarting a server service
 # @example
 #   include isp3node::base
 class isp3node::base(

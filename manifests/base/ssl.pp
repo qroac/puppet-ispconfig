@@ -1,15 +1,22 @@
-# @summary A short summary of the purpose of this class
+# @summary Manage the servers local main ssl certificate
 #
-# A description of what this class does
+# Place the certificate from hiera to a known location or obtain from Lets Encrypt
+# and create symlinks. 
+# Further replace SSL key and cert of ISPConfig as soon as it is installed.
+# For Lets Encrypt, a list of renewal jobs can be registered to execute e.g. service
+# reloads after certificate renewals.
 #
 # @example
 #   include isp3node::base::ssl
+# 
+# @param dhparamsize
+#   Bitsize of the DH Params file
 # @param letsencrypt
 #   Obtain certificate from letsencrypt
+# @param le_deploycommands
+#   Commands to execute after each successful LE certificate deployment
 # @param email
 #   Mail address for notifications from LE CA
-# @param domains
-#   Domains to obtain certificates for, Systems FQDN is automatically included
 # @param cert
 #   Certificate, if LE is not used
 # @param ca
@@ -17,12 +24,11 @@
 # @param key
 #   Private Key, if LE is not used
 class isp3node::base::ssl(
-  Integer $dhparamsize,
+  Integer $dhparamsize = 2048,
   Optional[Boolean] $letsencrypt = true,
   # TODO Need a better way to restart services after cert renewal ... Maybe a restart script and every service adds itself with concat?
   Optional[Array[String]] $le_deploycommands = ['systemctl restart postfix'],
   Optional[String] $email = lookup('isp3node::email', undef, undef, undef),
-  Optional[Array[String]] $domains = [],
   Optional[String] $cert = undef,
   Optional[String] $ca = undef,
   Optional[String] $key = undef,
@@ -59,12 +65,12 @@ class isp3node::base::ssl(
       ('80/tcp' in $facts['isp3node']['ports'] or '80/tcp6' in $facts['isp3node']['ports'])
     ){
       letsencrypt::certonly { $facts['fqdn']:
-        domains              => [$facts['fqdn']] + $domains,
+        domains              => [$facts['fqdn']],
         deploy_hook_commands => $deployhooks + $le_deploycommands,
       }
     } else {
       letsencrypt::certonly { $facts['fqdn']:
-        domains              => [$facts['fqdn']] + $domains,
+        domains              => [$facts['fqdn']],
         deploy_hook_commands => $deployhooks + $le_deploycommands,
         plugin               => 'webroot',
         webroot_paths        => ['/var/www/default']

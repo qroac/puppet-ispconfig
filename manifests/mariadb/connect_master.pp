@@ -7,6 +7,12 @@
 #
 # @example
 #   include isp3node::mariadb::connect_master
+# @param user
+#   username to add to the master DB for access from this host
+#   DO NOT USE root, this resource is already defined in mysql core setup and will
+#   cause puppet to fail. Beside that, do you want a privileged user root with external access?
+# @param password
+#   Password for authentication to master servers database
 class isp3node::mariadb::connect_master(
   String $user,
   String $password,

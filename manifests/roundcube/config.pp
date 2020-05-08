@@ -1,6 +1,8 @@
-# @summary A short summary of the purpose of this class
+# @summary Configure Roundcube Webmail
 #
-# A description of what this class does
+# Confiures basic settings in Roundcubes config file and adds required locations
+# to nginx FQDN host to access Webmail at /roundcube and /webmail
+# Further adds a Link to webmail to the default server startpage
 #
 # @example
 #   include isp3node::roundcube::config

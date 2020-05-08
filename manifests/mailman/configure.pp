@@ -1,9 +1,13 @@
-# @summary A short summary of the purpose of this class
+# @summary Configure mailman on the host
 #
-# A description of what this class does
+# Create the admin list 'mailman' and add required system mail aliases
 #
 # @example
 #   include isp3node::mailman::configure
+# @param admin_email
+#   Email to authenticate as mail list admin
+# @param admin_password
+#   Password to authenticate as mail list admin
 class isp3node::mailman::configure(
   String $admin_email,
   String $admin_password,

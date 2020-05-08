@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary Install and configure Dovecot Server
 #
-# A description of what this class does
+# Installs and configures a dovecot Mailbox server along with RSpamd 
 #
 # @example
 #   include isp3node::dovecot

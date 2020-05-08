@@ -1,9 +1,4 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
-#
-# @example
-#   include isp3node::profile::full
+# Setup this host with all packages for ISPConfig as single server node
 class isp3node::profile::full {
   class {'isp3node::base':
     le_deploycommands => [

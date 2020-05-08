@@ -1,9 +1,21 @@
-# @summary A short summary of the purpose of this class
+# @summary Install webstat tools to the server
 #
-# A description of what this class does
+# Installs common required packages along with packages required for Webstats and AWStats
 #
 # @example
 #   include isp3node::webstats::setup
+# @param packages
+#   Common required packages
+# @param packages_webalizer
+#   Software required for webalizer
+# @param packages_awstats
+#   Software required for awstats
+# @param awstats_conffile
+#   System path to awstats cronfile, will be cleared as ISPConfig triggers updates itself
+# @param webalizer
+#   Install Webalizer or not
+# @param awstats
+#   Install AWStats or not
 class isp3node::webstats::setup(
   Array[String] $packages,
   Array[String] $packages_webalizer,

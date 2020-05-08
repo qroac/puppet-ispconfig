@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary Install Webstat tools
 #
-# A description of what this class does
+# Installs Webalizer and AWStats as required for ISPConfig webservers
 #
 # @example
 #   include isp3node::webstats

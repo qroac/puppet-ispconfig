@@ -1,6 +1,7 @@
-# @summary A short summary of the purpose of this class
+# @summary Configure nginx locations for mailman access
 #
-# A description of what this class does
+# Adds locations /cgi-bin/mailman and /pipermail to the hosts FQDN host for
+# access to the mailinglist software and public list archives
 #
 # @example
 #   include isp3node::mailman::config::nginx

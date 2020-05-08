@@ -1,9 +1,9 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary Add nginx locations to access phpMyAdmin
 #
 # @example
 #   include isp3node::phpmyadmin::config::nginx
+# @param fastcgi_socket
+#   Socket to use for PHP-FPM connection
 class isp3node::phpmyadmin::config::nginx(
   $fastcgi_socket = '127.0.0.1:9000',
 ) {

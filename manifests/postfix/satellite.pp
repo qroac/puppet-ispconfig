@@ -1,13 +1,12 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary Set up this host as postfix satellite
 #
 # @example
 #   include isp3node::postfix::satellite
+# @param relay
+#   Hostname of Mail Relay server that will accept forwards from this host
 class isp3node::postfix::satellite(
   String $relay
 ) {
-  # TODO Add a collectible information with my ip for the relay server
   class{'isp3node::postfix::setup':
     options => {
       satellite  => true,

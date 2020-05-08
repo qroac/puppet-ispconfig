@@ -1,6 +1,4 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary Install a local redis server on this host
 #
 # @example
 #   include isp3node::redis

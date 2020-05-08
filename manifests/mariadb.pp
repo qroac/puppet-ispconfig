@@ -1,9 +1,16 @@
-# @summary A short summary of the purpose of this class
+# @summary Install and configure MariaDB on the host
 #
-# A description of what this class does
+# Install, configure and secure MariaDB on this host.
+# Further exports a ISPROOT user from each non-master node to be
+# collected on the master node, which automatically adds them 
+# with permission to dbispconfig.*
 #
 # @example
 #   include isp3node::mariadb
+# @param root_password
+#   Password to set for user root
+# @param public
+#   Listen on public IP or bind to 127.0.0.1
 class isp3node::mariadb(
   String $root_password,
   Boolean $public = false,

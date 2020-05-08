@@ -1,6 +1,8 @@
-# @summary A short summary of the purpose of this class
+# @summary Configure Postfix SSL Script
 #
-# A description of what this class does
+# Points postfix ssl configuration to the local installed ssl certificate
+# If managed through hiera instead of obtained via LE, also adds a subscription 
+# to the certificate file for postfix service restart
 #
 # @example
 #   include isp3node::postfix::ssl

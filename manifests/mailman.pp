@@ -1,6 +1,7 @@
-# @summary A short summary of the purpose of this class
+# @summary Setup mailman mailing list software on the host
 #
-# A description of what this class does
+# Installs and configures mailman along with required nginx locations
+# Further adds links to mailman and list archives to the servers default page
 #
 # @example
 #   include isp3node::mailman

@@ -1,17 +1,17 @@
-# @summary A short summary of the purpose of this class
+# @summary Setup fail2ban on the future ISPConfig server node
 #
-# A description of what this class does
+# Installs fail2ban on the host and enables jails as given in the parameters
 #
 # @example
 #   include isp3node::fail2ban::setup
 # @param jails
 #   Predefined jails to apply to f2b, see list: https://forge.puppet.com/puppet/fail2ban/readme#pre-defined-jails
 # @param servicejails
-#   Jails to apply if the services are installed on the node
+#   Jails to apply if the services are installed on the node (see fact isp3node::[servicename]::installed)
 # @param custom_jails
 #   Custom jail definitions to apply to f2b
 # @param custom_servicejails
-#   Custom jail definitions to apply if the service is installed
+#   Custom jail definitions to apply if the service is installed (see fact isp3node::[servicename]::installed)
 class isp3node::fail2ban::setup(
   Array[String] $jails,
   Hash[String, Array[String]] $servicejails,

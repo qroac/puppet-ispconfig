@@ -1,9 +1,9 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary Install mailman on the host
 #
 # @example
 #   include isp3node::mailman::setup
+# @param packages
+#   Required packages to install
 class isp3node::mailman::setup(
   Array[String] $packages,
 ) {

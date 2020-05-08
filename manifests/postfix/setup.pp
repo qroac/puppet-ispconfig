@@ -1,9 +1,19 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary Setup postfix mail service on this host
 #
 # @example
 #   include isp3node::postfix::setup
+# @param options
+#   Options to apply to the postfix class in addition to hardcoded default options
+# @param master_submission
+#   Textblock to write as subnission-block into master.cf
+# @param master_smtps
+#   Textblock to write as smtps block into master.cf
+# @param ispopts
+#   Additional options beside optional configuration via $opions, that are required by ispconfigs server setup
+# @param ispopts_mailman
+#   Additional options that are required, if this host is set up with mailman
+# @param additional_packages
+#   Additional software to install after installing and configuring postfix
 class isp3node::postfix::setup(
   Hash $options,
   String $master_submission,
@@ -12,7 +22,6 @@ class isp3node::postfix::setup(
   Optional[Hash] $ispopts_mailman = {},
   Hash $ispconf = {}, # applied as additional config resource
   Hash $ispconf_mailman = {},
-  Optional[Boolean] $mailman = false,
   Optional[Array[String]] $additional_packages = [],
 ) {
   $default_opts = {

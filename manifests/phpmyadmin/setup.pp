@@ -1,4 +1,4 @@
-# @summary A short summary of the purpose of this class
+# @summary Setup phpMyAdmin
 #
 # A description of what this class does
 #
@@ -6,13 +6,22 @@
 #   include isp3node::phpmyadmin::setup
 # @param frontend
 #   Set up a PMA web frontend or just list the server on other frontends
+# @param source
+#   Source URL to download latest PMA release
+# @blowfish_secret
+#   Secret string for session encryption
+# @controluser
+#   Control user username to create for PMA access to its config database
+# @controlpass
+#   Control user password for PMA access to its config database
+# @config_file
+#   Location of PMAs config file
 class isp3node::phpmyadmin::setup(
   Boolean $frontend,
   Hash $source,
   String $blowfish_secret,
   String $controluser,
   String $controlpass,
-  String $controlpass_hash,
   String $config_file = '/usr/share/phpmyadmin/config.inc.php',
 ) {
   # Enlist server as DB server in phpmyadmin

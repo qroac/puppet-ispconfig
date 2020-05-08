@@ -1,6 +1,8 @@
-# @summary A short summary of the purpose of this class
+# @summary Defaultpage location for ISPConfig
 #
-# A description of what this class does
+# Adds a location to the defaultpage to access ISPConfig at /cp/
+# Only on the master node, because all other hosts aren't allowed to reverse proxy
+# to ISPConfig
 #
 # @example
 #   include isp3node::nginx::ispproxyhost

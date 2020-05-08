@@ -1,6 +1,4 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary Install and manage fail2ban on the server node
 #
 # @example
 #   include isp3node::fail2ban

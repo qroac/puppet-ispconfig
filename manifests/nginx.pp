@@ -1,6 +1,7 @@
-# @summary A short summary of the purpose of this class
+# @summary Setup and configure nginx
 #
-# A description of what this class does
+# Installs nginx and configures required settings for ISPConfig along with
+# a default page on the hosts FQDN having links to public interfaces like Webmail
 #
 # @example
 #   include isp3node::nginx

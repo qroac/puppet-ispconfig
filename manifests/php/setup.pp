@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary Install and configure PHP on the host
 #
-# A description of what this class does
+# Install PHP with a given set of packages, extensions, features and system settings
 #
 # @example
 #   include isp3node::php::setup
@@ -24,7 +24,7 @@ class isp3node::php::setup(
   unless ($set =~ Undef or has_key($sets, $set)) {
     fail("PHP setup set ${set} is not defined")
   }
-  # maybe additional versions from sury, like so:
+  # TODO maybe additional versions from sury, like so:
   # https://github.com/codingfuture/puppet-cfweb/search?q=php&unscoped_q=php
 
   $my_set = $set ? {

@@ -22,8 +22,6 @@ isp3node::postfix::setup::additional_packages:
 isp3node::postfix::standalone::options:
   relayhost: ''
 
-isp3node::postfix::setup::ispopts:
-  alias_maps: hash:/etc/aliases
 isp3node::postfix::setup::ispopts_mailman:
   alias_maps: hash:/etc/aliases, hash:/var/lib/mailman/data/aliases
 isp3node::postfix::setup::ispconf:

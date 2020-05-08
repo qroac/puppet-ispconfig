@@ -1,9 +1,12 @@
-# @summary Installs nginx and enables FQDN default host
+# @summary Installs nginx
 #
-# A description of what this class does
+# Installs nginx Webserver with some required configuration for ISPConfig
+# and ensures nginx is running while checking Apache to be stopped
 #
 # @example
 #   include isp3node::nginx::setup
+# @param ispsettings
+#   Required settings to configure for ISPConfig
 class isp3node::nginx::setup(
   Hash $ispsettings,
 ) {

@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary Install and configure PHP
 #
-# A description of what this class does
+# Install and configure the default PHP version on the host applying a defined set of extensions, modules and features
 #
 # @example
 #   include isp3node::php

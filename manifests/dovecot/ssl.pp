@@ -1,6 +1,4 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary Configure Dovecot to use local managed SSL Certificates
 #
 # @example
 #   include isp3node::dovecot::ssl

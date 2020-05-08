@@ -1,6 +1,8 @@
-# @summary A short summary of the purpose of this class
+# @summary Set up a default page on hosts FQDN
 #
-# A description of what this class does
+# Places a default startpage on the hosts FQDN containing links to tools for the customers
+# like mailman, webmail, phpmyadmin or ispconfig.
+# RSpamd is not listed as link, because usually not ment for public access.
 #
 # @example
 #   include isp3node::nginx::defaulthost

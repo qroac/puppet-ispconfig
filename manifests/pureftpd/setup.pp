@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary Install pureftpd
 #
-# A description of what this class does
+# Installs required packages and ensures, the pureftpd service is running
 #
 # @example
 #   include isp3node::pureftpd::setup

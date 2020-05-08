@@ -1,9 +1,13 @@
-# @summary A short summary of the purpose of this class
+# @summary Configures quota
 #
-# A description of what this class does
+# Adds required quota options to fstab and initially enables user quota on the system
 #
 # @example
 #   include isp3node::quota::config
+# @param mountpoint
+#   Mountpoint in fstab to set quota on
+# @param mountopts
+#   Mount options to apply to this mountpoint. Defaults to minimum options for system partition + required opts for quota
 class isp3node::quota::config(
   String $mountpoint,
   Array[String] $mountopts,

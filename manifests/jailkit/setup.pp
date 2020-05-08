@@ -1,9 +1,22 @@
-# @summary A short summary of the purpose of this class
+# @summary Install the current version of Jailkit on the host
 #
-# A description of what this class does
+# Downloads the sourcecode archive, builds and installs the deb package
 #
 # @example
 #   include isp3node::jailkit::setup
+#
+# @param build_packages
+#   Packages required to build the software
+# @param source
+#   source url to download the {file}
+# @param file
+#   Filename to download from the {source}
+# @param checksum
+#   Expected checksum of the file
+# @param checksum_type
+#   Hash type of the checksum
+# @param tmpfolder
+#   Folder under /tmp/ that will be created by extracting the archive
 class isp3node::jailkit::setup(
   Array[String] $build_packages,
   String $source,

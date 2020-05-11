@@ -722,6 +722,14 @@ Data type: `String`
 
 Password for authentication to master servers database
 
+##### `collect_tag`
+
+Data type: `String`
+
+
+
+Default value: 'isp3node-masterdb-slave'
+
 ### isp3node::mariadb::setup
 
 The isp3node::mariadb::setup class.
@@ -1053,18 +1061,6 @@ Data type: `Hash`
 
 Options to apply to the postfix class in addition to hardcoded default options
 
-##### `master_submission`
-
-Data type: `String`
-
-Textblock to write as subnission-block into master.cf
-
-##### `master_smtps`
-
-Data type: `String`
-
-Textblock to write as smtps block into master.cf
-
 ##### `ispopts`
 
 Data type: `Hash`
@@ -1140,6 +1136,18 @@ The following parameters are available in the `isp3node::postfix::standalone` cl
 Data type: `Hash`
 
 Additional options to add to the postifx setup
+
+##### `master_submission`
+
+Data type: `String`
+
+Textblock to write as subnission-block into master.cf
+
+##### `master_smtps`
+
+Data type: `String`
+
+Textblock to write as smtps block into master.cf
 
 ### isp3node::profile::dns
 

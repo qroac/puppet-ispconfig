@@ -4,6 +4,10 @@
 #   include isp3node::postfix::standalone
 # @param options
 #   Additional options to add to the postifx setup
+# @param master_submission
+#   Textblock to write as subnission-block into master.cf
+# @param master_smtps
+#   Textblock to write as smtps block into master.cf
 class isp3node::postfix::standalone(
   Hash $options,
   String $master_submission,

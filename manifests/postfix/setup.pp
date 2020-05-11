@@ -4,10 +4,6 @@
 #   include isp3node::postfix::setup
 # @param options
 #   Options to apply to the postfix class in addition to hardcoded default options
-# @param master_submission
-#   Textblock to write as subnission-block into master.cf
-# @param master_smtps
-#   Textblock to write as smtps block into master.cf
 # @param ispopts
 #   Additional options beside optional configuration via $opions, that are required by ispconfigs server setup
 # @param ispopts_mailman

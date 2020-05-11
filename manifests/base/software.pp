@@ -15,8 +15,7 @@ class isp3node::base::software(
 ) {
   # include apt module and refresh package list
   include apt
-  package{$required + $additional:
+  ensure_resource('package', $required + $additional, {
     ensure  => latest,
-    require => Class['apt::update']
-  }
+  })
 }

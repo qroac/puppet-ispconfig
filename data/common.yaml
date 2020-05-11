@@ -48,14 +48,14 @@ isp3node::nginx::setup::ispsettings:
 
 # IMPORTANT! Set this on environment level!
 #postfix::params::master_os_template: isp3node/postfix/master.cf.debian.erb
-isp3node::postfix::setup::master_submission: |
+isp3node::postfix::standalone::master_submission: |
   submission inet n - y - - smtpd
     -o syslog_name=postfix/submission
     -o smtpd_tls_security_level=encrypt
     -o smtpd_sasl_auth_enable=yes
     -o smtpd_client_restrictions=permit_sasl_authenticated,reject
 
-isp3node::postfix::setup::master_smtps: |
+isp3node::postfix::standalone::master_smtps: |
   smtps inet n - y - - smtpd
     -o syslog_name=postfix/smtps
     -o smtpd_tls_wrappermode=yes
@@ -113,6 +113,8 @@ isp3node::php::setup::sets:
       xmlrpc: {}
       xsl: {}
       zip: {}
+    features:
+      - fpm
   web:
     extensions:
       apcu:

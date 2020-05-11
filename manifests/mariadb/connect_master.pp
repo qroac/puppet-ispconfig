@@ -16,6 +16,7 @@
 class isp3node::mariadb::connect_master(
   String $user,
   String $password,
+  String $collect_tag = 'isp3node-masterdb-slave',
 ) {
   unless($facts['fqdn'] == lookup('isp3node::master')) {
     # Export Users to be created on the master node
@@ -26,13 +27,13 @@ class isp3node::mariadb::connect_master(
     ]
     @@mysql_user{$users:
       ensure        => present,
-      tag           => ['isp3node-slave', 'isproot-on-master'],
+      tag           => $collect_tag,
       password_hash => mysql::password($password),
       }
     $users.each |$u| {
-      @@mysql_grant{ "${u}/dbispconfig":
+      @@mysql_grant{ "${u}/*.*":
         ensure  => present,
-        tag     => ['isp3node-slave', 'isproot-on-master'],
+        tag     => $collect_tag,
         user    => $u,
         require => Mysql_user[$u],
       }
@@ -40,14 +41,14 @@ class isp3node::mariadb::connect_master(
   }
   else {
     # Realize the exported users and grants
-    Mysql_user <<| tag == 'isp3node-slave' and tag == 'isproot-on-master' |>>{
+    Mysql_user <<| tag == $collect_tag |>>{
       max_user_connections     => 0,
       max_connections_per_hour => 0,
       max_updates_per_hour     => 0,
       max_queries_per_hour     => 0
     }
-    Mysql_grant <<| tag == 'isp3node-slave' and tag == 'isproot-on-master' |>>{
-      table      => 'dbispconfig',
+    Mysql_grant <<| tag == $collect_tag |>>{
+      table      => '*.*',
       privileges => ['ALL'],
       options    => ['GRANT']
     }

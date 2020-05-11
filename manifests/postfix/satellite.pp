@@ -9,9 +9,12 @@ class isp3node::postfix::satellite(
 ) {
   class{'isp3node::postfix::setup':
     options => {
-      satellite  => true,
-      mynetworks => '127.0.0.0/8, [::1]/128',
-      relayhost  => $relay,
+      mynetworks      => '127.0.0.0/8, [::1]/128',
+      relayhost       => $relay,
+      inet_interfaces => 'loopback-only',
     }
+  }
+  postfix::config {
+    'relayhost':     value => $relay;
   }
 }

@@ -5,4 +5,5 @@
 class isp3node::roundcube {
   class{'isp3node::roundcube::setup':}
   -> class{'isp3node::roundcube::config':}
+  -> class{'isp3node::roundcube::plugins':}
 }

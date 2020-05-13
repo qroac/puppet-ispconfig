@@ -5,48 +5,59 @@
 # @example
 #   include isp3node::roundcube::plugin::ispconfig
 class isp3node::roundcube::plugins(
-  String $repository_ispconfig,
-  String $api_user = Undef,
-  String $api_pass = Undef,
+  Array $base_plugins,
+  String $ispconfig_repo,
+  Array $ispconfig_plugins,
+  Array[String] $additional = [],
+  String $remoteuser = Undef,
+  String $remotepass = Undef,
   String $api_host = lookup('isp3node::master'),
-  Array[String] $enabled = [],
 ) {
-  if($api_user and $api_pass and $api_host){
+  if($remoteuser and $remotepass and $api_host){
+    $rc_plugindir = '/usr/local/ispconfig-puppet/roundcube/plugins-ispconfig'
+    file{'rc-pluginfolder':
+      ensure => directory,
+      path   => $rc_plugindir
+    }
     ensure_resource('package', 'git')
-    vcsrepo { '/usr/share/roundcube/plugins-vcs/ispconfig':
+    vcsrepo { '/usr/local/ispconfig-puppet/roundcube/plugins-ispconfig':
       ensure   => latest,
       provider => git,
-      source   => $repository_ispconfig,
-      require  => Package['git'],
+      source   => $ispconfig_repo,
+      require  => [Package['git'], File['rc-pluginfolder']],
     }
-    $basepath = '/usr/share/roundcube'
-    $folders = [
-      'ispconfig3_account', 'ispconfig3_autoreply','ispconfig3_autoselect',
-      'ispconfig3_fetchmail','ispconfig3_filter', 'ispconfig3_forward',
-      'ispconfig3_pass', 'ispconfig3_spam', 'ispconfig3_wblist'
-    ]
-    $folders.each |$f| {
-      file{"roundcube-plugin-${f}":
+    $ispconfig_plugins.each |$p| {
+      $p_loc = "/usr/local/ispconfig-puppet/roundcube/plugins-ispconfig/${p}"
+      file{"/usr/share/roundcube/plugins/${p}":
         ensure => link,
-        path   => "${basepath}/plugins/${f}",
-        target => "${basepath}/plugins-vcs/ispconfig/${f}",
+        target => $p_loc
+      }
+      file{"/var/lib/roundcube/plugins/${p}":
+        ensure => link,
+        target => $p_loc
       }
     }
     file{'roundcube-plugin-ispconfig3_account-config':
       ensure  => file,
-      path    => '/usr/share/roundcube/plugins-vcs/ispconfig/ispconfig3_account/config/config.inc.php',
+      path    => '/usr/local/ispconfig-puppet/roundcube/plugins-ispconfig/ispconfig3_account/config/config.inc.php',
       content => epp('isp3node/roundcube/plugin.ispconfig_account.config.php', {
         api_host => $api_host,
-        api_user => $api_user,
-        api_pass => $api_pass,
+        api_user => $remoteuser,
+        api_pass => $remotepass,
       })
     }
-    $pluginstring = join($enabled, '", "')
+    $pluginstring = join($base_plugins + $additional + $ispconfig_plugins, '", "')
     $ini_settings = {'' => {
       '$config[\'identities_level\']' => '2;',
       '$config[\'default_host\']' => '\'\';',
       '$config[\'plugins\']' => "array(\"${pluginstring}\");"
     }}
     create_ini_settings($ini_settings, {path => '/etc/roundcube/config.inc.php'})
+    # remove remaining closing bracket that is usually in next line of plugin definition
+    file_line{'rc-config-no-orphan-bracket':
+      ensure => absent,
+      path   => '/etc/roundcube/config.inc.php',
+      line   => ');'
+    }
   }
 }

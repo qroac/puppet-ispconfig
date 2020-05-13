@@ -226,17 +226,21 @@ isp3node::fail2ban::setup::servicejails:
   roundcube:
     - roundcube-auth
   
-# TODO Not yet finished below here
-isp3node::roundcube::plugins::enabled:
-  - jqueryui
+
+isp3node::roundcube::plugins::base_plugins:
+  - jqueryui  
+isp3node::roundcube::plugins::ispconfig_repo:  git://github.com/w2c/ispconfig3_roundcube.git
+isp3node::roundcube::plugins::ispconfig_plugins: 
   - ispconfig3_account
   - ispconfig3_autoreply
   - ispconfig3_autoselect
-  - ispconfig3_pass
-  - ispconfig3_spam
   - ispconfig3_fetchmail
   - ispconfig3_filter
   - ispconfig3_forward
+  - ispconfig3_pass
+  - ispconfig3_spam
   - ispconfig3_wblist
 
-isp3node::roundcube::plugins::repository_ispconfig:  git://github.com/w2c/ispconfig3_roundcube.git
+# For roundcube ispconfig plugins
+#isp3node::roundcube::plugins::remoteuser:
+#isp3node::roundcube::plugins::remotepass:

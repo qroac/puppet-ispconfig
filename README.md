@@ -168,6 +168,43 @@ CNAME|autodiscover|your.mailserver.tld.|0|3600
 SRV|discover.{DOMAIN}|1|10|443|your.mailserver.tld.|3600
 ```
 
+#### Roundcube ISPConfig Plugin
+
+If you create an ISPConfig remote user for roundcube and add its credentials to your datafile,
+this module will download and configure the available ISPConfig modules for roundcube.  
+Be aware, that now you must list all enabled RC plugins in your data file as well because the corresponding setting in RCs config file will be overwritten by puppet.
+
+Plugin Source: https://github.com/w2c/ispconfig3_roundcube
+
+Permissions for remote user:
+
+* Client functions
+* Server functions
+* Mail user functions
+* Mail user filter functions
+* Mail alias functions
+* Mail forward functions
+* Mail fetchmail functions
+* Mail spamfilter user functions
+* Mail spamfilter policy functions
+* Mail spamfilter whitelist functions
+* Mail spamfilter blacklist functions
+
+´´´yaml
+# Fields for ISPConfig Remote user:  
+isp3node::roundcube::plugins::remoteuser: your_user  
+isp3node::roundcube::plugins::remotepass: your_pass 
+
+# For your plugin list to enable in rc config in this order:
+# jquery-ui, [your plugins ... ,] ispconfig_plugins
+isp3node::roundcube::plugins::additional:
+  - plugin1
+  - plugin2
+´´´
+
+Note that your additional plugins will only be added to the activated plugin list, but will not be downloaded or installed.  
+To do so, follow the official guides from roundcube and additional setup notes of the plugin authors.
+
 ## Limitations
 
 Currently this module is limited to Debian 10 only!  

@@ -46,6 +46,10 @@ isp3node::nginx::setup::ispsettings:
       mappings:
         '"~(?P<ip>.*)"': '$ip'
 
+isp3node::nginx::automail::repository: https://github.com/SpicyWeb-de/isp-mailConfig.git
+#isp3node::nginx::automail::remoteuser:
+#isp3node::nginx::automail::remotepass:
+
 # IMPORTANT! Set this on environment level!
 #postfix::params::master_os_template: isp3node/postfix/master.cf.debian.erb
 isp3node::postfix::standalone::master_submission: |

@@ -68,6 +68,10 @@ isp3node::phpmyadmin::setup::controlpass: supersecret
 # Credentials to access mailmans admin settings
 isp3node::mailman::configure::admin_email: your@e.mail
 isp3node::mailman::configure::admin_password: supersecret
+
+# Credentials of ISPConfig remote user for automail discovery app (optional)
+isp3node::nginx::automail::remoteuser: your_rc_user
+isp3node::nginx::automail::remotepass: your_rc_pass
 ```
 
 ### What isp3node affects
@@ -124,6 +128,45 @@ There is no risk in importing the desired profile as the main class does nothing
 
 The profiles on the other hand just import the main setup classes of the required components, some with additional parameters.
 So if you need a special scenario, you can peek into the profiles and build your own one featuring a public accessible database, jailkit, Mail and DNS. Just include the desired service setup classes. (PS: Mail with rspamd still requires nginx for access to the rspamd dashboard).
+
+### Some notes on managed services
+
+#### Mail Auto Discovery Plugin
+
+This module is able to manage an automail installation on your mailservers to provide mailclients like outlook or thunderbird with autoconfig abilities to retrieve server settings for mail exchange.
+
+Source: https://github.com/SpicyWeb-de/isp-mailConfig
+
+To enable the managed automail installation, execute the following steps after installing ISPConfig:
+
+- In ISPConfig under __System -> Remote Users__ create a new user with privileges
+  - Server functions
+  - Mail User functions
+- Add the users credentials to your datafile as
+  - isp3node::nginx::automail::remoteuser: rc_user_name
+  - isp3node::nginx::automail::remotepass: rc_user_password
+- Optional add the following settings to modify the name of the discovered mail service, brackets show the fallback value if not defined
+  - isp3node::nginx::automail::service_name (FQDN)
+  - isp3node::nginx::automail::service_shortname (Domain)
+
+__automail will now be installed on next puppet agent run__
+
+To enable auto discovery capabilities for a domain, add the following entries to the domains DNS record:
+| Type  | Hostname           | Target               | Weight | Port | Priority |
+|-------|--------------------|----------------------|--------|------|----------|
+| CNAME | autoconfig         | your.mailserver.tld. |        |      |          |
+| CNAME | autodiscover       | your.mailserver.tld. |        |      |          |
+| SRV   | _autodiscover._tcp | your.mailserver.tld. | 10     | 443  | 1        |
+
+__Thats all. Auto service discovery for this domain is now enabled.__
+
+To further enable automail for all new created DNS zones, you might also want to add the following line to your ISPConfig DNS zone template:
+
+```
+CNAME|autoconfig|your.mailserver.tld.|0|3600
+CNAME|autodiscover|your.mailserver.tld.|0|3600
+SRV|discover.{DOMAIN}|1|10|443|your.mailserver.tld.|3600
+```
 
 ## Limitations
 

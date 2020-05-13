@@ -38,6 +38,7 @@ class isp3node::nginx::defaulthost {
     server_name         => [$facts['fqdn']],
     listen_ip           => $facts['networking']['ip'],
     ipv6_listen_ip      => $facts['networking']['ip6'],
+    ipv6_enable         => true,
     www_root            => '/var/www/default',
     location_cfg_append => {
       'rewrite' => '^ https://$server_name$request_uri? permanent'
@@ -49,6 +50,7 @@ class isp3node::nginx::defaulthost {
     listen_port    => 443,
     listen_ip      => $facts['networking']['ip'],
     ipv6_listen_ip => $facts['networking']['ip6'],
+    ipv6_enable    => true,
     www_root       => '/var/www/default',
     ssl            => true,
     ssl_cert       => "/etc/ssl/local/${facts['fqdn']}.bundle.crt",

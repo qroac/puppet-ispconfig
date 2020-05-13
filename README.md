@@ -8,10 +8,14 @@ with modifications for the already suggested replacement of amavis+spamassassin 
 
 1. [Description](#description)
 2. [Setup - The basics of getting started with isp3node](#setup)
+    * [Required Configuration](#required-configuration)
     * [What isp3node affects](#what-isp3node-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with isp3node](#beginning-with-isp3node)
 3. [Usage - Configuration options and additional functionality](#usage)
+    * [Notes on managed plugins](#some-notes-on-managed-services)
+        * [Mailserver Autodiscovery Plugin](#mail-auto-discovery-plugin)
+        * [Roundcube ISPConfig Plugin](#roundcube-ispconfig-plugin)
 4. [Limitations - OS compatibility, etc.](#limitations)
 5. [Development - Guide for contributing to the module](#development)
 
@@ -34,12 +38,13 @@ isp3node::mode: full
 # in your site manifest
 inlcude isp3node
 ```
+
 Alternativly you can include the isp3node class with a mode parameter `class {'isp3node': mode => 'full'}` or directly include one of the provided server profiles like this:
-- `include isp3node::profiles::full`
-- `include isp3node::profiles::master`
-- `include isp3node::profiles::dns`
-- `include isp3node::profiles::mail`
-- `include isp3node::profiles::web`
+* `include isp3node::profiles::full`
+* `include isp3node::profiles::master`
+* `include isp3node::profiles::dns`
+* `include isp3node::profiles::mail`
+* `include isp3node::profiles::web`
 
 ### Required configuration
 
@@ -113,16 +118,18 @@ As said before, first make sure to add the required configuration to your data f
 
 By default this module installs requirements for the master database and ISPConfig configuration panel, but not to host customer sites, DNS or mail accounts.
 To set up your host for a different role, you can choose from different roles:
-- full: Complete installation from HowtoForge perfect server tutorial for hosting everything on one machine
-- master: Prepared to host the master DB and the panel. In fact just an installation of 'web' with some not required features stripped out. If you don't want to have a dedicated master, just use a full or web node as master.
-- dns: BIND9 DNS Server
-- mail: Postfix MTA and dovecot, usable as mail relay for all other servers
-- web: nginx webserver and MariaDB server configured for public access
+
+* full: Complete installation from HowtoForge perfect server tutorial for hosting everything on one machine
+* master: Prepared to host the master DB and the panel. In fact just an installation of 'web' with some not required features stripped out. If you don't want to have a dedicated master, just use a full or web node as master.
+* dns: BIND9 DNS Server
+* mail: Postfix MTA and dovecot, usable as mail relay for all other servers
+* web: nginx webserver and MariaDB server configured for public access
 
 You have different options to set a role for your host:
-- Set it on import in class style: `class {'isp3node': mode => 'full'}`
-- Set it in a host-specific hiera file: `isp3node::role: full`
-- Directly import the desired isp3node profile: `import isp3node::profile::full`
+
+* Set it on import in class style: `class {'isp3node': mode => 'full'}`
+* Set it in a host-specific hiera file: `isp3node::role: full`
+* Directly import the desired isp3node profile: `import isp3node::profile::full`
 
 There is no risk in importing the desired profile as the main class does nothing else than that.
 
@@ -139,15 +146,15 @@ Source: https://github.com/SpicyWeb-de/isp-mailConfig
 
 To enable the managed automail installation, execute the following steps after installing ISPConfig:
 
-- In ISPConfig under __System -> Remote Users__ create a new user with privileges
-  - Server functions
-  - Mail User functions
-- Add the users credentials to your datafile as
-  - isp3node::nginx::automail::remoteuser: rc_user_name
-  - isp3node::nginx::automail::remotepass: rc_user_password
-- Optional add the following settings to modify the name of the discovered mail service, brackets show the fallback value if not defined
-  - isp3node::nginx::automail::service_name (FQDN)
-  - isp3node::nginx::automail::service_shortname (Domain)
+* In ISPConfig under __System -> Remote Users__ create a new user with privileges
+  * Server functions
+  * Mail User functions
+* Add the users credentials to your datafile as
+  * isp3node::nginx::automail::remoteuser: rc_user_name
+  * isp3node::nginx::automail::remotepass: rc_user_password
+* Optional add the following settings to modify the name of the discovered mail service, brackets show the fallback value if not defined
+  * isp3node::nginx::automail::service_name (FQDN)
+  * isp3node::nginx::automail::service_shortname (Domain)
 
 __automail will now be installed on next puppet agent run__
 
@@ -190,7 +197,7 @@ Permissions for remote user:
 * Mail spamfilter whitelist functions
 * Mail spamfilter blacklist functions
 
-´´´yaml
+```yaml
 # Fields for ISPConfig Remote user:  
 isp3node::roundcube::plugins::remoteuser: your_user  
 isp3node::roundcube::plugins::remotepass: your_pass 
@@ -200,7 +207,7 @@ isp3node::roundcube::plugins::remotepass: your_pass
 isp3node::roundcube::plugins::additional:
   - plugin1
   - plugin2
-´´´
+```
 
 Note that your additional plugins will only be added to the activated plugin list, but will not be downloaded or installed.  
 To do so, follow the official guides from roundcube and additional setup notes of the plugin authors.
@@ -223,10 +230,11 @@ Because I am as most human beings limited to 24 hours per day and am doing this 
 A great description in the PR would describe the reason for the PR and telling details about what it changes and what else it could affect.
 
 ### Importent for all chages
-- Extract configurations, package names and so on into the data files
-- Set up a default configuration that makes sense with a minimum of configuration requirements
-- Require but do not include sensitive information like passwords. I think they should be forced to be set even in a testing environment.
-- Speaking of: TEST. Test your changes with all predefined server roles. There is no automated test suite yet. So set up test VMs or such and assing the different roles to it (maybe the same VM again and again with reset to a snapshot in between)
+
+* Extract configurations, package names and so on into the data files
+* Set up a default configuration that makes sense with a minimum of configuration requirements
+* Require but do not include sensitive information like passwords. I think they should be forced to be set even in a testing environment.
+* Speaking of: TEST. Test your changes with all predefined server roles. There is no automated test suite yet. So set up test VMs or such and assing the different roles to it (maybe the same VM again and again with reset to a snapshot in between)
 
 ### In case of bugfix or code improvement
 
@@ -245,10 +253,11 @@ For introducing new services, please stick wherever possible to my class pattern
 I can only test and maintain the code for Debian from 10 up. I dont have any other servers in my possession and especially with CentOS or RedHat too few practical experience.
 
 So if you want to introduce a different OS than Debian, I invite you to become maintainer for isp3node regarding to this OS.
-- Add the OS specific data files listing required packages
-- make required changes (especially if supporting non-APT and dpkg related OSses, as that is used a lot in this module)
-- Test it on your OS, I will do so on debian
-- Create your pull request
-- Be ready to pick up the co-maintainer hat for your OS
+
+* Add the OS specific data files listing required packages
+* make required changes (especially if supporting non-APT and dpkg related OSses, as that is used a lot in this module)
+* Test it on your OS, I will do so on debian
+* Create your pull request
+* Be ready to pick up the co-maintainer hat for your OS
 
 *Sidenote:* As mentioned before I can support only debian. That is why I will remove OSses without active maintainer.

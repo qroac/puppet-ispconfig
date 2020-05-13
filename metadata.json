@@ -1,6 +1,6 @@
 {
   "name": "qroac-isp3node",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Michael Fürmann",
   "summary": "Install services and tools required for webhosting managed by ISPConfig 3",
   "license": "MIT",

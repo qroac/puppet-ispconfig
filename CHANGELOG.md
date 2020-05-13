@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.1.2
+
+**Features**
+- Mail service discovery  
+  Adds an automail app to mailservers to enable server discovery for mailclients  
+  Requires configuration and additional DNS entries in customer DNS zones, see [README](./README.md#mail-auto-discovery-plugin)
+- Roundcube plugins for ISPConfig  
+  Adds management for Roundcube ISPConfig plugins  
+  Requires configuration, see [README](./README.md#roundcube-ispconfig-plugin)
+
+**Bugfixes**
+- nginx Default host not listening on IPv6
+
 ## Release 0.1.1
 
 **Features**

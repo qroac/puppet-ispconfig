@@ -31,6 +31,7 @@
 * [`isp3node::mariadb::connect_master`](#isp3nodemariadbconnect_master): Connects instances to the ISPConfig Master Database
 * [`isp3node::mariadb::setup`](#isp3nodemariadbsetup): 
 * [`isp3node::nginx`](#isp3nodenginx): Setup and configure nginx
+* [`isp3node::nginx::automail`](#isp3nodenginxautomail): A short summary of the purpose of this class
 * [`isp3node::nginx::defaulthost`](#isp3nodenginxdefaulthost): Set up a default page on hosts FQDN
 * [`isp3node::nginx::ispproxyhost`](#isp3nodenginxispproxyhost): Defaultpage location for ISPConfig
 * [`isp3node::nginx::setup`](#isp3nodenginxsetup): Installs nginx
@@ -771,6 +772,60 @@ a default page on the hosts FQDN having links to public interfaces like Webmail
 include isp3node::nginx
 ```
 
+### isp3node::nginx::automail
+
+A description of what this class does
+
+#### Examples
+
+##### 
+
+```puppet
+include isp3node::nginx::automail
+```
+
+#### Parameters
+
+The following parameters are available in the `isp3node::nginx::automail` class.
+
+##### `repository`
+
+Data type: `String`
+
+
+
+##### `remoteuser`
+
+Data type: `String`
+
+
+
+Default value: `undef`
+
+##### `remotepass`
+
+Data type: `String`
+
+
+
+Default value: `undef`
+
+##### `service_name`
+
+Data type: `String`
+
+
+
+Default value: $facts['fqdn']
+
+##### `service_shortname`
+
+Data type: `String`
+
+
+
+Default value: $facts['domain']
+
 ### isp3node::nginx::defaulthost
 
 Places a default startpage on the hosts FQDN containing links to tools for the customers
@@ -1353,13 +1408,33 @@ include isp3node::roundcube::plugin::ispconfig
 
 The following parameters are available in the `isp3node::roundcube::plugins` class.
 
-##### `repository_ispconfig`
+##### `base_plugins`
+
+Data type: `Array`
+
+
+
+##### `ispconfig_repo`
 
 Data type: `String`
 
 
 
-##### `api_user`
+##### `ispconfig_plugins`
+
+Data type: `Array`
+
+
+
+##### `additional`
+
+Data type: `Array[String]`
+
+
+
+Default value: []
+
+##### `remoteuser`
 
 Data type: `String`
 
@@ -1367,7 +1442,7 @@ Data type: `String`
 
 Default value: Undef
 
-##### `api_pass`
+##### `remotepass`
 
 Data type: `String`
 
@@ -1382,14 +1457,6 @@ Data type: `String`
 
 
 Default value: lookup('isp3node::master')
-
-##### `enabled`
-
-Data type: `Array[String]`
-
-
-
-Default value: []
 
 ### isp3node::roundcube::setup
 
